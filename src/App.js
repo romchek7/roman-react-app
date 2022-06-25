@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/Navbar';
-import Profile from './components/Profile';
-import Footer from './components/Footer';
+import Navbar from './components//Navbar/Navbar';
+import Profile from './components/Profile/Profile';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
   return (

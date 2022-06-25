@@ -1,0 +1,22 @@
+.main {
+    width: 100%;
+    grid-area: i3;
+    background-color: rgb(221, 203, 99);
+}
+
+.content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content>input {
+    width: 500px;
+    margin: 10px;
+}
+
+.content>span {
+    margin: 10px;
+}

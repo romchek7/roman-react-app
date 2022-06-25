@@ -1,0 +1,26 @@
+.main {
+    grid-area: i2;
+    background-color: rgb(111, 44, 150);
+    width: 100%;
+}
+
+.mainSlide img {
+    width: 100%;
+}
+
+.personalInfo {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.personalInfo>p {
+    margin-left: 40px;
+    font-size: 30px;
+}
+
+.slideImages {}
+
+.slideImages img {
+    width: 200px;
+}

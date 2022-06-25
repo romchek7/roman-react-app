@@ -4,20 +4,9 @@
     "n"
     "c"
     "f";
-  grid-template-rows: 150fr 1500fr 150fr;
+  grid-template-rows: 80px 500fr 200px;
 }
 
-.navbar {
-  grid-area: n;
-  background-color: rgba(30, 30, 30, 1);
-}
-
-.content {
-  grid-area: c;
-  background-color: rgb(77, 122, 148);
-}
-
-.footer {
-  grid-area: f;
-  background-color: rgba(30, 30, 30, 1);
+a {
+  text-decoration: none;
 }

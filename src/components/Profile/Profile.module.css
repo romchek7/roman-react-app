@@ -1,0 +1,19 @@
+.content {
+    grid-area: c;
+    background-color: rgb(77, 122, 148);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main {
+    width: 90%;
+    display: grid;
+    grid-template-areas:
+        "i1 i2"
+        "i3 i3"
+        "i4 i4";
+    grid-auto-rows: 800px 100px 100fr;
+    grid-template-columns: 20% 80% 100% 100%;
+}
