@@ -7,13 +7,11 @@ import Comments from "./Comments/Comments";
 
 const Profile = () => {
     return (
-        <div className={x.content}>
-            <div className={x.main}>
-                <Logo />
-                <Info />
-                <CrComment />
-                <Comments />
-            </div>
+        <div className={x.main}>
+            <Logo />
+            <Info />
+            <CrComment />
+            <Comments />
         </div>
     );
 }

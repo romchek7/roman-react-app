@@ -1,40 +1,22 @@
-.navbar {
-    grid-area: n;
+.navBar {
     background-color: rgba(30, 30, 30, 1);
     width: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
-.main {
-    width: 50%;
-    height: 100%;
-    display: grid;
-    grid-template-areas:
-        "i1 i2 i3 i4";
-    grid-gap: 50px;
+.item {
+    margin: 50px;
+    width: 100px;
 }
 
-.main>a {
-    text-align: center;
-    padding: 20px 0;
-    font-size: 30px;
+.link {
     color: white;
+    font-size: 15px;
 }
 
-.item1 {
-    grid-area: i1;
-}
-
-.item2 {
-    grid-area: i2;
-}
-
-.item3 {
-    grid-area: i3;
-}
-
-.item4 {
-    grid-area: i4;
+.active {
+    color: #E60F0F;
+    font-size: 18px;
 }

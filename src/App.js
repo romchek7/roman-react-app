@@ -1,16 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './components//Navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
+import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
 import Footer from './components/Footer/Footer';
+import Dialogs from './components/Dialogs/Dialogs';
+import News from './components/News/News';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const App = () => {
   return (
-    <div className='app-wrapper'>
-      <Navbar />
-      <Profile />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className='app-wrapper'>
+        <Navbar />
+        <div className='app-wrapper-content'>
+          <Routes>
+            <Route path='/home' element={<Home />} />
+            <Route path='/dialogs' element={<Dialogs />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/news' element={<News />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </BrowserRouter >
   );
 }
 
