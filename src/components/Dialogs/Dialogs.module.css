@@ -1,0 +1,14 @@
+.main {
+    display: grid;
+    width: 90%;
+    grid-template-columns: 20% 80%;
+}
+
+.dialogs {
+    background-color: rgb(40, 40, 40);
+}
+
+.dialog {
+    display: flex;
+    flex-direction: column;
+}

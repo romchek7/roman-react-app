@@ -1,0 +1,51 @@
+.active {
+    width: 100%;
+    height: 80px;
+    background-color: rgb(230, 230, 230);
+    color: black;
+    font-size: 18px;
+}
+
+.notActive {
+    height: 80px;
+    color: white;
+    font-size: 15px;
+}
+
+
+.notActive :hover {
+    background-color: rgb(180, 180, 180);
+}
+
+.dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.userLogo {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatName {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(201, 23, 23);
+}

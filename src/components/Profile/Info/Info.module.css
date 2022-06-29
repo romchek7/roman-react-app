@@ -1,17 +1,39 @@
 .main {
     grid-area: i2;
-    background-color: rgb(111, 44, 150);
     width: 100%;
 }
 
-.mainSlide img {
+.slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainSlide, .slideImages {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainSlide {
+    min-height: 400px;
+}
+
+.slideImages {
+    min-height: 100px;
+}
+
+.mainSlide img {
+    width: 70%;
 }
 
 .personalInfo {
     display: flex;
     align-items: center;
     height: 50px;
+    color: white;
 }
 
 .personalInfo>p {
@@ -19,8 +41,7 @@
     font-size: 30px;
 }
 
-.slideImages {}
-
 .slideImages img {
-    width: 200px;
+    width: 150px;
+    padding: 10px;
 }

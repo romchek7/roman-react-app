@@ -6,7 +6,7 @@
 
 .app-wrapper-content {
     grid-area: c;
-    background-color: rgb(77, 122, 148);
+    background-color: rgb(40, 40, 40);
     display: flex;
     align-items: center;
     justify-content: center;
