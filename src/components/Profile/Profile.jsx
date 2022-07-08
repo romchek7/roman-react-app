@@ -11,7 +11,7 @@ const Profile = (props) => {
             <Logo />
             <Info />
             <CrComment />
-            <Comments messagesArray={props.messagesArray} />
+            <Comments messagesArray={props.profilePage.commentsArray} />
         </div>
     );
 }
