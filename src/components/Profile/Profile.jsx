@@ -5,13 +5,13 @@ import Info from './Info/Info'
 import CrComment from './CreateComment/CrComment'
 import Comments from "./Comments/Comments";
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <div className={x.main}>
             <Logo />
             <Info />
             <CrComment />
-            <Comments />
+            <Comments messagesArray={props.messagesArray} />
         </div>
     );
 }

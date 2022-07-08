@@ -8,7 +8,7 @@ import Dialogs from './components/Dialogs/Dialogs';
 import News from './components/News/News';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-const App = () => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
@@ -16,10 +16,10 @@ const App = () => {
         <div className='app-wrapper-content'>
           <Routes>
             <Route path='/home' element={<Home />} />
-            <Route path='/dialogs' element={<Dialogs />}>
+            <Route path='/dialogs' element={<Dialogs dialogsArray={props.dialogsArray} />}>
               <Route path=':id' element={<Dialogs />} />
             </Route>
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile' element={<Profile messagesArray={props.messagesArray} />} />
             <Route path='/news' element={<News />} />
           </Routes>
         </div>
