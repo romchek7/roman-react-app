@@ -1,13 +1,21 @@
 import React from "react";
 import x from './CrComment.module.css';
 
-const CrComment = () => {
+const CrComment = (props) => {
+    let newComment = React.createRef();
+
+    let addComment = () => {
+        let text = newComment.current.value;
+
+        props.addComment(text);
+    }
+
     return (
         <div className={x.main}>
             <div className={x.content}>
-                <input type="text" />
+                <textarea type="text" ref={newComment}></textarea>
                 <div>
-                    <button>
+                    <button onClick={addComment}>
                         Add
                     </button>
                 </div>

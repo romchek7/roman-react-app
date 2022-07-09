@@ -10,7 +10,7 @@ const Profile = (props) => {
         <div className={x.main}>
             <Logo />
             <Info />
-            <CrComment />
+            <CrComment addComment={props.addComment} />
             <Comments messagesArray={props.profilePage.commentsArray} />
         </div>
     );
