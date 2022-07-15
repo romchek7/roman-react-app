@@ -1,21 +1,24 @@
 import React from "react";
-import x from './CrComment.module.css';
+import styles from './CrComment.module.css';
 
 const CrComment = (props) => {
     let newComment = React.createRef();
 
-    let addComment = () => {
-        let text = newComment.current.value;
+    let onAddComment = () => {
+        props.addComment();
+    }
 
-        props.addComment(text);
+    let onChangeComment = () => {
+        let text = newComment.current.value;
+        props.changeComment(text);
     }
 
     return (
-        <div className={x.main}>
-            <div className={x.content}>
-                <textarea type="text" ref={newComment}></textarea>
+        <div className={styles.main}>
+            <div className={styles.content}>
+                <textarea onChange={onChangeComment} type="text" ref={newComment} value={props.newCommentText}></textarea>
                 <div>
-                    <button onClick={addComment}>
+                    <button onClick={onAddComment}>
                         Add
                     </button>
                 </div>

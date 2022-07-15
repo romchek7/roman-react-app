@@ -1,11 +1,12 @@
-import { render } from '../render';
+let render = () => {}
 
 let state = {
     profilePage: {
         commentsArray: [
             { id: 1, message: 'comment 1', likes: 10 },
             { id: 2, message: 'comment 2', likes: 20 }
-        ]
+        ],
+        newCommentText: ""
     },
     dialogsPage: {
         dialogsArray: [
@@ -23,16 +24,25 @@ let state = {
     }
 }
 
-export let addComment = (postComment) => {
-    let newComment = { 
+export let addComment = () => {
+    let newComment = {
         id: 8,
-        message: postComment,
+        message: state.profilePage.newCommentText,
         likes: 0
     }
 
     state.profilePage.commentsArray.push(newComment);
-
+    state.profilePage.newCommentText = ''
     render(state);
+}
+
+export let changeComment = (text) => {
+    state.profilePage.newCommentText = text;
+    render(state);
+}
+
+export const subscribe = (observer) => {
+    render = observer
 }
 
 export default state;

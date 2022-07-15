@@ -8,8 +8,12 @@ import { useParams } from "react-router-dom";
 const Dialogs = (props) => {
     const { id } = useParams();
     
+    console.log(props.dialogsPage)
+
     let dialogsElements = props.dialogsPage.dialogsArray.map(d => <Dialog id={d.id} name={d.name} />);
 
+
+    
     return (
         <div className={style.main}>
             <div className={style.dialogs}>
