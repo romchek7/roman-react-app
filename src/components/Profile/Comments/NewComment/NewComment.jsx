@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './NewComm.module.css';
+import styles from './NewComment.module.css';
 
 const NewComm = (props) => {
     return (

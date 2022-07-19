@@ -1,9 +1,9 @@
 import React from "react";
 import styles from './Comments.module.css';
-import NewComm from "./NewComment/NewCom";
+import NewComment from "./NewComment/NewComment";
 
 const Comments = (props) => {
-    let messagesElements = props.messagesArray.map(message => <NewComm message={message.message} likes={message.likes} />);
+    let messagesElements = props.messagesArray.map(message => <NewComment message={message.message} likes={message.likes} />);
 
     return (
         <div className={styles.content}>

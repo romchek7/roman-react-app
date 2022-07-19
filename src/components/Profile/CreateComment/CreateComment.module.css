@@ -31,3 +31,12 @@
 .content>span {
     margin: 10px;
 }
+
+.content button {
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgb(230, 230, 230);
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

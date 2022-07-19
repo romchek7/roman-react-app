@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './CrComment.module.css';
+import styles from './CreateComment.module.css';
 
 const CrComment = (props) => {
     let newComment = React.createRef();
@@ -19,7 +19,7 @@ const CrComment = (props) => {
                 <textarea onChange={onChangeComment} type="text" ref={newComment} value={props.newCommentText}></textarea>
                 <div>
                     <button onClick={onAddComment}>
-                        Add
+                        Post
                     </button>
                 </div>
             </div>
