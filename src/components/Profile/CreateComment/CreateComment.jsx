@@ -5,12 +5,12 @@ const CrComment = (props) => {
     let newComment = React.createRef();
 
     let onAddComment = () => {
-        props.addComment();
+        props.dispatch({ type: 'ADD-POST' });
     }
 
     let onChangeComment = () => {
         let text = newComment.current.value;
-        props.changeComment(text);
+        props.dispatch({ type: 'CHANGE-COMMENT', text: text});
     }
 
     return (

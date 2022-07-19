@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let render = (state) => {
     root.render(
-        <App state={state} addComment={store.addComment.bind(store)} changeComment={store.changeComment.bind(store)} />
+        <App state={state} dispatch={store.dispatch.bind(store)} />
     );
 }
 

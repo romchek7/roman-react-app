@@ -23,31 +23,33 @@ let store = {
         }
     },
 
+    _render() { },
+
     getState() {
         return this._state
     },
 
-    render() { },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newComment = {
+                id: 8,
+                message: this._state.profilePage.newCommentText,
+                likes: 0
+            }
 
-    addComment() {
-        let newComment = {
-            id: 8,
-            message: this._state.profilePage.newCommentText,
-            likes: 0
+            this._state.profilePage.commentsArray.push(newComment);
+            this._state.profilePage.newCommentText = ''
+            this._render(this._state);
         }
-
-        this._state.profilePage.commentsArray.push(newComment);
-        this._state.profilePage.newCommentText = ''
-        this.render(this._state);
-    },
-
-    changeComment(text) {
-        this._state.profilePage.newCommentText = text;
-        this.render(this._state);
-    },
+        else if (action.type === 'CHANGE-COMMENT') {
+            this._state.profilePage.newCommentText = action.text;
+            this._render(this._state);
+        }
+    }
+    ,
 
     subscribe(observer) {
-        this.render = observer
+        this._render = observer
     }
 }
 
