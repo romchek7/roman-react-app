@@ -1,16 +1,17 @@
 import React from "react";
 import styles from './CreateComment.module.css';
+import { addPostActionCreator, changeCommentActionCreator } from '../../../redux/state'
 
 const CrComment = (props) => {
     let newComment = React.createRef();
 
     let onAddComment = () => {
-        props.dispatch({ type: 'ADD-POST' });
+        props.dispatch(addPostActionCreator());
     }
 
     let onChangeComment = () => {
         let text = newComment.current.value;
-        props.dispatch({ type: 'CHANGE-COMMENT', text: text});
+        props.dispatch(changeCommentActionCreator(text));
     }
 
     return (

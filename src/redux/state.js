@@ -1,3 +1,6 @@
+const ADD_POST = 'ADD-POST'
+const CHANGE_COMMENT = 'CHANGE-COMMENT'
+
 let store = {
     _state: {
         profilePage: {
@@ -30,7 +33,7 @@ let store = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             let newComment = {
                 id: 8,
                 message: this._state.profilePage.newCommentText,
@@ -41,7 +44,7 @@ let store = {
             this._state.profilePage.newCommentText = ''
             this._render(this._state);
         }
-        else if (action.type === 'CHANGE-COMMENT') {
+        else if (action.type === CHANGE_COMMENT) {
             this._state.profilePage.newCommentText = action.text;
             this._render(this._state);
         }
@@ -52,5 +55,9 @@ let store = {
         this._render = observer
     }
 }
+
+export let addPostActionCreator = () => ({ type: ADD_POST })
+
+export let changeCommentActionCreator = (text) => ({ type: CHANGE_COMMENT, text: text})
 
 export default store;
