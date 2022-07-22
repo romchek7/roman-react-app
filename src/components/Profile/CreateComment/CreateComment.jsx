@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './CreateComment.module.css';
-import { addPostActionCreator, changeCommentActionCreator } from '../../../redux/state'
+import { addPostActionCreator, changeCommentActionCreator } from '../../../redux/profilePageReducer'
 
 const CrComment = (props) => {
     let newComment = React.createRef();

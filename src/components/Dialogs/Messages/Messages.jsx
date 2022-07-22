@@ -1,6 +1,6 @@
 import React from "react";
 import style from './Messages.module.css'
-import { addNewMessageCreator, changeMessageBodyCreator } from '../../../redux/state'
+import { addNewMessageCreator, changeMessageBodyCreator } from '../../../redux/dialogsPageReducer'
 
 const Messages = (props) => {
     let myMessagesArray = props.messagesArray.map(m =>
