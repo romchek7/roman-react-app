@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST'
 const CHANGE_COMMENT = 'CHANGE-COMMENT'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const CHANGE_MESSAGE = 'CHANGE-MESSAGE'
 
 let store = {
     _state: {
@@ -22,7 +24,12 @@ let store = {
                 { id: 8, name: 'Dialog 8' },
                 { id: 9, name: 'Dialog 9' },
                 { id: 10, name: 'Dialog 10' }
-            ]
+            ],
+            messagesArray: [
+                { id: 1, message: 'Hello' },
+                { id: 2, message: 'Hi' }
+            ],
+            newMessageBody: ""
         }
     },
 
@@ -40,16 +47,29 @@ let store = {
                 likes: 0
             }
 
-            this._state.profilePage.commentsArray.push(newComment);
+            this._state.profilePage.commentsArray.push(newComment)
             this._state.profilePage.newCommentText = ''
-            this._render(this._state);
+            this._render(this._state)
         }
         else if (action.type === CHANGE_COMMENT) {
-            this._state.profilePage.newCommentText = action.text;
-            this._render(this._state);
+            this._state.profilePage.newCommentText = action.text
+            this._render(this._state)
         }
-    }
-    ,
+        else if (action.type === ADD_MESSAGE) {
+            let newMessage = {
+                id: 7,
+                message: this._state.dialogsPage.newMessageBody
+            }
+
+            this._state.dialogsPage.messagesArray.push(newMessage)
+            this._state.dialogsPage.newMessageBody = ''
+            this._render(this._state)
+        }
+        else if (action.type === CHANGE_MESSAGE) {
+            this._state.dialogsPage.newMessageBody = action.body
+            this._render(this._state)
+        }
+    },
 
     subscribe(observer) {
         this._render = observer
@@ -57,7 +77,9 @@ let store = {
 }
 
 export let addPostActionCreator = () => ({ type: ADD_POST })
+export let changeCommentActionCreator = (text) => ({ type: CHANGE_COMMENT, text: text })
 
-export let changeCommentActionCreator = (text) => ({ type: CHANGE_COMMENT, text: text})
+export let addNewMessageCreator = () => ({ type: ADD_MESSAGE })
+export let changeMessageBodyCreator = (body) => ({ type: CHANGE_MESSAGE, body: body })
 
 export default store;
