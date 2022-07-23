@@ -6,28 +6,35 @@ import Profile from './components/Profile/Profile';
 import Footer from './components/Footer/Footer';
 import Dialogs from './components/Dialogs/Dialogs';
 import News from './components/News/News';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 const App = (props) => {
-  return (
-    <BrowserRouter>
-      <div className='app-wrapper'>
-        <Navbar />
-        <div className='app-wrapper-content'>
-          <Routes>
-            <Route path='/home' element={<Home />} />
-            <Route path='/dialogs' element={<Dialogs dialogsPage={props.state.dialogsPage} dispatch={props.dispatch} />}>
-              <Route path=':id' element={<Dialogs />} />
-            </Route>
-            <Route path='/profile'
-              element={<Profile profilePage={props.state.profilePage} dispatch={props.dispatch} />} />
-            <Route path='/news' element={<News />} />
-          </Routes>
-        </div>
-        <Footer />
-      </div>
-    </BrowserRouter >
-  );
+    return (
+        <BrowserRouter>
+            <div className='app-wrapper'>
+                <Navbar/>
+                <div className='app-wrapper-content'>
+                    <Routes>
+                        <Route path='/home' element={<Home/>}/>
+                        <Route path='/dialogs'
+                               element={
+                                   <Dialogs store={props.store} dialogsPage={props.state.dialogsPage}
+                                            dispatch={props.dispatch}/>
+                               }>
+                            <Route path=':id' element={<Dialogs/>}/>
+                        </Route>
+                        <Route path='/profile'
+                               element={
+                                   <Profile store={props.store} profilePage={props.state.profilePage}
+                                            dispatch={props.dispatch}/>
+                               }/>
+                        <Route path='/news' element={<News/>}/>
+                    </Routes>
+                </div>
+                <Footer/>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;

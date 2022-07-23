@@ -3,8 +3,8 @@ const CHANGE_COMMENT = 'CHANGE-COMMENT'
 
 let initialState = {
     commentsArray: [
-        { id: 1, message: 'comment 1', likes: 10 },
-        { id: 2, message: 'comment 2', likes: 20 }
+        {id: 1, message: 'comment 1', likes: 10},
+        {id: 2, message: 'comment 2', likes: 20}
     ],
     newCommentText: ""
 }
@@ -28,7 +28,7 @@ const profilePageReducer = (state = initialState, action) => {
     }
 }
 
-export let addPostActionCreator = () => ({ type: ADD_POST })
-export let changeCommentActionCreator = (text) => ({ type: CHANGE_COMMENT, text: text })
+export let addPostActionCreator = () => ({type: ADD_POST})
+export let changeCommentActionCreator = (text) => ({type: CHANGE_COMMENT, text: text})
 
 export default profilePageReducer

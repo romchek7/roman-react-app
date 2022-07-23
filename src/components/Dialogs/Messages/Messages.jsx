@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 import style from './Messages.module.css'
-import { addNewMessageCreator, changeMessageBodyCreator } from '../../../redux/dialogsPageReducer'
+import {addNewMessageCreator, changeMessageBodyCreator} from '../../../redux/dialogsPageReducer'
 
 const Messages = (props) => {
-    let myMessagesArray = props.messagesArray.map(m =>
+    let myMessagesArray = props.dialogsPage.messagesArray.map(m =>
         <div className={style.messageTextMe}>
             {m.message}
         </div>
@@ -12,12 +12,15 @@ const Messages = (props) => {
     let newMessage = React.createRef();
 
     let onSendMessage = () => {
-        props.dispatch(addNewMessageCreator())
+        props.addNewMessage()
+        // props.dispatch(addNewMessageCreator())
     }
 
     let onChangeMessageBody = () => {
         let body = newMessage.current.value
-        props.dispatch(changeMessageBodyCreator(body))
+
+        props.changeMessage(body)
+        // props.dispatch(changeMessageBodyCreator(body))
     }
 
     return (
@@ -39,7 +42,7 @@ const Messages = (props) => {
                     onChange={onChangeMessageBody}
                     type="text"
                     ref={newMessage}
-                    value={props.newMessageBody}></textarea>
+                    value={props.dialogsPage.newMessageBody}></textarea>
                 <button onClick={onSendMessage}>Send</button>
             </div>
         </div>

@@ -3,14 +3,13 @@ import style from './Dialogs.module.css'
 import Dialog from "./Dialog/Dialog";
 import Messages from "./Messages/Messages";
 import ChooseDialog from "./ChooseDialog/ChooseDialog";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
+import MessagesContainer from "./Messages/MessagesContainer";
 
 const Dialogs = (props) => {
-    const { id } = useParams();
+    const {id} = useParams();
 
-    let dialogsElements = props.dialogsPage.dialogsArray.map(d => <Dialog id={d.id} name={d.name} />);
-
-
+    let dialogsElements = props.dialogsPage.dialogsArray.map(d => <Dialog id={d.id} name={d.name}/>);
 
     return (
         <div className={style.main}>
@@ -21,14 +20,15 @@ const Dialogs = (props) => {
             </div>
 
             {id && (
-                <Messages id={id}
-                    messagesArray={props.dialogsPage.messagesArray}
-                    dispatch={props.dispatch}
-                    newMessageBody = {props.dialogsPage.newMessageBody} />
+                <MessagesContainer store={props.store} id={id}/>
+                // <Messages id={id}
+                //           messagesArray={props.dialogsPage.messagesArray}
+                //           dispatch={props.dispatch}
+                //           newMessageBody={props.dialogsPage.newMessageBody}/>
             )}
 
             {!id && (
-                <ChooseDialog />
+                <ChooseDialog/>
             )}
         </div>
     );
