@@ -10,10 +10,11 @@ const Profile = (props) => {
         <div className={styles.main}>
             <Logo/>
             <Info/>
-            <CreateCommentContainer store={props.store}
-                                    dispatch={props.dispatch}
-                                    newCommentText={props.profilePage.newCommentText}/>
-            <Comments messagesArray={props.profilePage.commentsArray}/>
+            <CreateCommentContainer/>
+            {/*<CreateCommentContainer store={props.store}*/}
+            {/*                        dispatch={props.dispatch}*/}
+            {/*                        newCommentText={props.profilePage.newCommentText}/>*/}
+            <Comments messagesArray={props.store.getState().profilePage.commentsArray}/>
         </div>
     );
 }

@@ -1,23 +1,31 @@
 import React from "react";
 import {addPostActionCreator, changeCommentActionCreator} from "../../../redux/profilePageReducer";
 import CreateComment from "./CreateComment";
+import StoreContext from "../../../StoreContext";
 
-const CreateCommentContainer = (props) => {
-    let state = props.store.getState()
+const CreateCommentContainer = () => {
+    return <StoreContext.Consumer>
+        {
+            store => {
+                let state = store.getState()
 
-    let onAddComment = () => {
-        props.store.dispatch(addPostActionCreator());
-    }
+                let onAddComment = () => {
+                    store.dispatch(addPostActionCreator());
+                }
 
-    let onChangeComment = (text) => {
-        props.store.dispatch(changeCommentActionCreator(text));
-    }
+                let onChangeComment = (text) => {
+                    store.dispatch(changeCommentActionCreator(text));
+                }
 
-    return (
-        <CreateComment addComment={onAddComment}
-                       changeComment={onChangeComment}
-                       profilePage={state.profilePage}/>
-    )
+                return <CreateComment addComment={onAddComment}
+                                      changeComment={onChangeComment}
+                                      profilePage={state.profilePage}/>
+            }
+        }
+    </StoreContext.Consumer>
+    // <CreateComment addComment={onAddComment}
+    //                changeComment={onChangeComment}
+    //                profilePage={state.profilePage}/>
 }
 
 export default CreateCommentContainer

@@ -1,37 +1,41 @@
 import React from "react";
 import style from './Dialogs.module.css'
 import Dialog from "./Dialog/Dialog";
-import Messages from "./Messages/Messages";
 import ChooseDialog from "./ChooseDialog/ChooseDialog";
 import {useParams} from "react-router-dom";
 import MessagesContainer from "./Messages/MessagesContainer";
+import StoreContext from "../../StoreContext";
 
-const Dialogs = (props) => {
+const Dialogs = () => {
     const {id} = useParams();
 
-    let dialogsElements = props.dialogsPage.dialogsArray.map(d => <Dialog id={d.id} name={d.name}/>);
+    return <StoreContext.Consumer>
+        {
+            store => {
+                let state = store.getState()
 
-    return (
-        <div className={style.main}>
-            <div className={style.dialogs}>
-                <div className={style.dialog}>
-                    {dialogsElements}
-                </div>
-            </div>
+                let dialogsElements = state.dialogsPage.dialogsArray.map(d => <Dialog id={d.id} name={d.name}/>);
 
-            {id && (
-                <MessagesContainer store={props.store} id={id}/>
-                // <Messages id={id}
-                //           messagesArray={props.dialogsPage.messagesArray}
-                //           dispatch={props.dispatch}
-                //           newMessageBody={props.dialogsPage.newMessageBody}/>
-            )}
+                return (
+                    <div className={style.main}>
+                        <div className={style.dialogs}>
+                            <div className={style.dialog}>
+                                {dialogsElements}
+                            </div>
+                        </div>
 
-            {!id && (
-                <ChooseDialog/>
-            )}
-        </div>
-    );
+                        {id && (
+                            <MessagesContainer store={store} id={id}/>
+                        )}
+
+                        {!id && (
+                            <ChooseDialog/>
+                        )}
+                    </div>
+                );
+            }
+        }
+    </StoreContext.Consumer>
 }
 
 export default Dialogs;
