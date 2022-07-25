@@ -3,8 +3,7 @@
     display: grid;
     grid-template-areas:
         "i1 i2"
-        "i3 i3"
-        "i4 i4";
-    grid-auto-rows: 800px 100px 100fr;
+        "i3 i3";
+    grid-auto-rows: 600px 100fr;
     grid-template-columns: 20% 80% 100% 100%;
 }

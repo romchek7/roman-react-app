@@ -1,34 +1,34 @@
 const ADD_POST = 'ADD-POST'
-const CHANGE_COMMENT = 'CHANGE-COMMENT'
+const UPDATE_POST = 'CHANGE-POST'
 
 let initialState = {
-    commentsArray: [
+    postsArray: [
         {id: 1, message: 'comment 1', likes: 10},
         {id: 2, message: 'comment 2', likes: 20}
     ],
-    newCommentText: ""
+    newPostText: ""
 }
 
 const profilePageReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
-            let newComment = {
+            let newPost = {
                 id: 8,
-                message: state.newCommentText,
+                message: state.newPostText,
                 likes: 0
             }
-            state.commentsArray.push(newComment)
-            state.newCommentText = ''
+            state.postsArray.push(newPost)
+            state.newPostText = ''
             return state
-        case CHANGE_COMMENT:
-            state.newCommentText = action.text
+        case UPDATE_POST:
+            state.newPostText = action.text
             return state
         default:
             return state
     }
 }
 
-export let addPostActionCreator = () => ({type: ADD_POST})
-export let changeCommentActionCreator = (text) => ({type: CHANGE_COMMENT, text: text})
+export let addPostCreator = () => ({type: ADD_POST})
+export let updatePostCreator = (text) => ({type: UPDATE_POST, text: text})
 
 export default profilePageReducer

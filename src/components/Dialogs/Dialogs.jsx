@@ -1,41 +1,52 @@
-import React from "react";
+import React from "react"
 import style from './Dialogs.module.css'
-import Dialog from "./Dialog/Dialog";
-import ChooseDialog from "./ChooseDialog/ChooseDialog";
-import {useParams} from "react-router-dom";
-import MessagesContainer from "./Messages/MessagesContainer";
-import StoreContext from "../../StoreContext";
+import Dialog from "./Dialog/Dialog"
+import Messages from "./Messages/Messages";
+import {addMessageCreator, updateMessageCreator} from "../../redux/dialogsPageReducer";
 
-const Dialogs = () => {
-    const {id} = useParams();
+const Dialogs = (props) => {
+    let dialogsElements = props.dialogsPage.dialogsArray.map(d => <Dialog id={d.id} name={d.name}/>)
+    let messagesElements = props.dialogsPage.messagesArray.map(m => <Messages id={m.id} message={m.message}/>)
 
-    return <StoreContext.Consumer>
-        {
-            store => {
-                let state = store.getState()
+    let onAddMessage = () => {
+        props.addMessage()
+    }
 
-                let dialogsElements = state.dialogsPage.dialogsArray.map(d => <Dialog id={d.id} name={d.name}/>);
+    let onUpdateMessage = (areaValue) => {
+        let text = areaValue.target.value
+        props.updateMessage(text)
+    }
 
-                return (
-                    <div className={style.main}>
-                        <div className={style.dialogs}>
-                            <div className={style.dialog}>
-                                {dialogsElements}
-                            </div>
-                        </div>
+    return (
+        <div className={style.main}>
+            <div className={style.dialogs}>
+                <div className={style.dialog}>
+                    {dialogsElements}
+                </div>
+            </div>
 
-                        {id && (
-                            <MessagesContainer store={store} id={id}/>
-                        )}
-
-                        {!id && (
-                            <ChooseDialog/>
-                        )}
+            <div className={style.mainMessages}>
+                <div className={style.userInfo}>
+                        <span>
+                            Dialog
+                        </span>
+                </div>
+                <div className={style.messages}>
+                    <div className={style.messageText}>
+                        Message
                     </div>
-                );
-            }
-        }
-    </StoreContext.Consumer>
+                    {messagesElements}
+                </div>
+                <div className={style.addMessage}>
+                    <textarea value={props.dialogsPage.newMessageBody}
+                              placeholder='Write a message...'
+                              onChange={onUpdateMessage}/>
+                    <button onClick={onAddMessage}>Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    )
 }
 
-export default Dialogs;
+export default Dialogs

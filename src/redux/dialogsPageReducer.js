@@ -3,20 +3,13 @@ const CHANGE_MESSAGE = 'CHANGE-MESSAGE'
 
 let initialState = {
     dialogsArray: [
-        { id: 1, name: 'Dialog 1' },
-        { id: 2, name: 'Dialog 2' },
-        { id: 3, name: 'Dialog 3' },
-        { id: 4, name: 'Dialog 4' },
-        { id: 5, name: 'Dialog 5' },
-        { id: 6, name: 'Dialog 6' },
-        { id: 7, name: 'Dialog 7' },
-        { id: 8, name: 'Dialog 8' },
-        { id: 9, name: 'Dialog 9' },
-        { id: 10, name: 'Dialog 10' }
+        {id: 1, name: 'Dialog 1'},
+        {id: 2, name: 'Dialog 2'},
+        {id: 3, name: 'Dialog 3'},
     ],
     messagesArray: [
-        { id: 1, message: 'Hello' },
-        { id: 2, message: 'Hi' }
+        {id: 1, message: 'Hello'},
+        {id: 2, message: 'Hi'}
     ],
     newMessageBody: ""
 }
@@ -39,7 +32,7 @@ const dialogsPageReducer = (state = initialState, action) => {
     }
 }
 
-export let addNewMessageCreator = () => ({ type: ADD_MESSAGE })
-export let changeMessageBodyCreator = (body) => ({ type: CHANGE_MESSAGE, body: body })
+export let addMessageCreator = () => ({type: ADD_MESSAGE})
+export let updateMessageCreator = (body) => ({type: CHANGE_MESSAGE, body: body})
 
 export default dialogsPageReducer
