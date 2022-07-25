@@ -8,19 +8,10 @@ import {Provider} from 'react-redux'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let render = (state) => {
-    root.render(
-        <Provider store={store}>
-            <App/>
-        </Provider>
-    );
-}
+root.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>
+);
 
 reportWebVitals();
-
-render(store.getState())
-
-store.subscribe(() => {
-    let state = store.getState()
-    render(state)
-})

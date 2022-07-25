@@ -4,12 +4,12 @@ import Logo from './Logo/Logo'
 import Info from './Info/Info'
 import PostsContainer from "./Posts/PostsContainer";
 
-const Profile = (props) => {
+const Profile = () => {
     return (
         <div className={styles.main}>
             <Logo/>
             <Info/>
-            <PostsContainer store={props.store}/>
+            <PostsContainer/>
         </div>
     );
 }

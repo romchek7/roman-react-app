@@ -3,13 +3,13 @@ import Posts from "./Posts"
 import {addPostCreator, updatePostCreator} from "../../../redux/profilePageReducer"
 import {connect} from "react-redux";
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         profilePage: state.profilePage
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         addPost: () => {
             dispatch(addPostCreator())

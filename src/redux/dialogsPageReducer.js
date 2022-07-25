@@ -21,12 +21,16 @@ const dialogsPageReducer = (state = initialState, action) => {
                 id: 7,
                 message: state.newMessageBody
             }
-            state.messagesArray.push(newMessage)
-            state.newMessageBody = ''
-            return state
+            return {
+                ...state,
+                messagesArray: [...state.messagesArray, newMessage],
+                newMessageBody: ''
+            }
         case CHANGE_MESSAGE:
-            state.newMessageBody = action.body
-            return state
+            return {
+                ...state,
+                newMessageBody: action.body
+            }
         default:
             return state
     }
