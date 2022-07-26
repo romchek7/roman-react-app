@@ -1,0 +1,56 @@
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.users {
+    width: 80%;
+}
+
+.user {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: rgb(230, 230, 230);
+}
+
+.userPhoto {
+    width: 10%;
+}
+
+.userPhoto img {
+    width: 50px;
+    height: 50px;
+}
+
+.userName {
+    width: 30%;
+}
+
+.userLocation {
+    width: 30%;
+}
+
+.followBtn {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.followBtn button {
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgb(230, 230, 230);
+    height: 40px;
+    width: 100px;
+}
+
+.followBtn button:hover {
+    cursor: pointer;
+    color: rgb(179, 21, 21);
+    border-color: rgb(179, 21, 21);
+}
