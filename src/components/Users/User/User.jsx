@@ -1,19 +1,12 @@
 import React from "react"
 import styles from '../Users.module.css'
+import userIcon from './img/account.png'
 
 const User = (props) => {
-    let onFollowUser = (userId) => {
-        props.followUser(userId)
-    }
-
-    let onUnfollowUser = (userId) => {
-        props.unfollowUSer(userId)
-    }
-
     return (
         <div className={styles.user}>
             <div className={styles.userPhoto}>
-                <img src={props.userPhoto}/>
+                <img src={props.userPhoto != null ? props.userPhoto : userIcon}/>
             </div>
             <div className={styles.userName}>
                 {props.name}

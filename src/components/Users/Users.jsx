@@ -1,49 +1,24 @@
 import React from "react"
 import styles from './Users.module.css'
 import User from "./User/User";
+import * as axios from 'axios'
 
 const Users = (props) => {
 
     if (props.usersPage.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                userPhoto: 'https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png',
-                userName: 'User 1',
-                location: {
-                    country: 'Ukraine',
-                    city: 'Lviv'
-                },
-                followed: true
-            },
-            {
-                id: 2,
-                userPhoto: 'http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png',
-                userName: 'User 2',
-                location: {
-                    country: 'Poland',
-                    city: 'Lodz'
-                },
-                followed: false
-            },
-            {
-                id: 3,
-                userPhoto: 'http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png',
-                userName: 'User 3',
-                location: {
-                    country: 'Ukraine',
-                    city: 'Chop'
-                },
-                followed: true
-            }
-        ])
+        axios
+            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                props.setUsers(response.data.items)
+            })
     }
 
     let usersElements = props.usersPage.users.map(u => <User id={u.id}
-                                                             name={u.userName}
-                                                             city={u.location.city}
-                                                             country={u.location.country}
-                                                             userPhoto={u.userPhoto}
+                                                             name={u.name}
+                                                             city={'u.location.city'}
+                                                             country={'u.location.country'}
+                                                             userPhoto={u.photos.small}
+                                                             status={u.status}
                                                              followed={u.followed}
                                                              followUser={props.followUser}
                                                              unfollowUSer={props.unFollowUser}/>
