@@ -62,8 +62,10 @@
 }
 
 .paginationNumber {
-    width: 40px;
-    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: rgb(201, 23, 23);
     color: rgb(230, 230, 230);
     border-radius: 10px;
@@ -81,8 +83,10 @@
 }
 
 .paginationNumberActive {
-    width: 40px;
-    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: rgb(230, 230, 230);
     color: rgb(30, 30, 30);
     border-radius: 10px;
@@ -91,4 +95,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.paginationNumberHold {
+    display: none;
 }
