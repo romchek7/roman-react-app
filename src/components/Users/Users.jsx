@@ -7,14 +7,40 @@ class Users extends React.Component {
     componentDidMount() {
         if (this.props.usersPage.users.length === 0) {
             axios
-                .get('https://social-network.samuraijs.com/api/1.0/users')
+                .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPage.pageSize}&page=${this.props.usersPage.currentPage}`)
                 .then(response => {
                     this.props.setUsers(response.data.items)
+                    // this.props.setTotalUsersCount(response.data.totalCount)
                 })
         }
     }
 
+    onPageChanged(pageNumber) {
+        this.props.setCurrentPage(pageNumber)
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPage.pageSize}&page=${pageNumber}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
+
     render() {
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        let pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
+        let pagesElements = pages.map(p =>
+            <div onClick={(e) => {
+                this.onPageChanged(p)
+            }}
+                 className={this.props.currentPage === p ? styles.paginationNumberActive : styles.paginationNumber}>
+                {p}
+            </div>
+        )
+
         let usersElements = this.props.usersPage.users.map(u => (
             <div className={styles.user}>
                 <div className={styles.userPhoto}>
@@ -40,6 +66,10 @@ class Users extends React.Component {
             <div className={styles.main}>
                 <div className={styles.users}>
                     {usersElements}
+
+                    <div className={styles.paginationNumbers}>
+                        {pagesElements}
+                    </div>
                 </div>
             </div>
         )
