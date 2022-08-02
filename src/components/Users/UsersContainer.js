@@ -1,20 +1,21 @@
 import React from 'react'
-import {connect} from "react-redux";
-import Users from "./Users";
+import {connect} from "react-redux"
 import {
     followCreator,
     setCurrentPage,
     setTotalUsersCount,
     setUsersCreator,
     unFollowCreator
-} from "../../redux/usersPageReducer";
+} from "../../redux/usersPageReducer"
+import UsersAPI from "./UsersAPI";
 
 let mapStateToProps = (state) => {
     return {
-        usersPage: state.usersPage,
+        users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+        pagesLimit: state.usersPage.pagesLimit
     }
 }
 
@@ -38,6 +39,6 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI)
 
 export default UsersContainer
