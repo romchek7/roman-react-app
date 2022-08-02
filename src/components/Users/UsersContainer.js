@@ -2,8 +2,8 @@ import React from 'react'
 import {connect} from "react-redux"
 import {
     followCreator,
-    setCurrentPage,
-    setTotalUsersCount,
+    setCurrentPageCreator, setFetchingValueCreator,
+    setTotalUsersCountCreator,
     setUsersCreator,
     unFollowCreator
 } from "../../redux/usersPageReducer"
@@ -15,7 +15,8 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        pagesLimit: state.usersPage.pagesLimit
+        pagesLimit: state.usersPage.pagesLimit,
+        isFetching: state.usersPage.isFetching
     }
 }
 
@@ -31,10 +32,13 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(setUsersCreator(users))
         },
         setCurrentPage: (currentPage) => {
-            dispatch(setCurrentPage(currentPage))
+            dispatch(setCurrentPageCreator(currentPage))
         },
         setTotalUsersCount: (totalUsersCount) => {
-            dispatch(setTotalUsersCount(totalUsersCount))
+            dispatch(setTotalUsersCountCreator(totalUsersCount))
+        },
+        setFetchingValue: (isFetching) => {
+            dispatch(setFetchingValueCreator(isFetching))
         }
     }
 }

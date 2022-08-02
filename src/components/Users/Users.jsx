@@ -1,6 +1,6 @@
 import React from "react"
 import styles from './Users.module.css'
-import userIcon from '../img/account.png'
+import userIcon from '../assets/images/account.png'
 
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
