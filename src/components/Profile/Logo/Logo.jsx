@@ -1,15 +1,21 @@
 import React from "react";
 import x from './Logo.module.css'
+import Preloader from "../../common/Preloader/Preloader";
 
-const Logo = () => {
+const Logo = (props) => {
+    if (!props.profile) {
+        return <Preloader/>
+    }
+    debugger
     return (
         <div className={x.main}>
             <div className={x.image}>
-                <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/soccer-ball_26bd.png" />
+                <img
+                    src={props.profile.photos.large}/>
             </div>
             <div className={x.status}>
                 <p>
-                    Computer vision
+                    {props.profile.aboutMe}
                 </p>
             </div>
         </div>
