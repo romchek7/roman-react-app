@@ -36,8 +36,8 @@ class UsersAPI extends React.Component {
                                                            pageSize={this.props.pageSize}
                                                            currentPage={this.props.currentPage}
                                                            pagesLimit={this.props.pagesLimit}
-                                                           followUser={this.props.followUser}
-                                                           unFollowUser={this.props.unFollowUser}
+                                                           followUser={this.props.follow}
+                                                           unFollowUser={this.props.unFollow}
                                                            users={this.props.users}/>}
         </>
     }

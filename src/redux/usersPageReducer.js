@@ -67,14 +67,14 @@ let usersPageReducer = (state = initialState, action) => {
     }
 }
 
-export let followCreator = (userId) => ({type: FOLLOW, userId: userId})
-export let unFollowCreator = (userId) => ({type: UNFOLLOW, userId: userId})
-export let setUsersCreator = (users) => ({type: SET_USERS, users: users})
-export let setCurrentPageCreator = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage: currentPage})
-export let setTotalUsersCountCreator = (totalUsersCount) => ({
+export let follow = (userId) => ({type: FOLLOW, userId})
+export let unFollow = (userId) => ({type: UNFOLLOW, userId})
+export let setUsers = (users) => ({type: SET_USERS, users})
+export let setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
+export let setTotalUsersCount = (totalUsersCount) => ({
     type: SET_TOTAL_USERS_COUNT,
     totalUsersCount: totalUsersCount
 })
-export let setFetchingValueCreator = (isFetching) => ({type: SET_FETCHING_VALUE, isFetching: isFetching})
+export let setFetchingValue = (isFetching) => ({type: SET_FETCHING_VALUE, isFetching})
 
 export default usersPageReducer
