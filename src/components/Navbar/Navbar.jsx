@@ -2,7 +2,7 @@ import React from "react";
 import styles from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
     return (
         <nav className={styles.navBar}>
             <div className={styles.item}><NavLink to='/home'
@@ -11,6 +11,13 @@ const Navbar = () => {
             <div className={styles.item}><NavLink to='/profile'
                                                   className={({isActive}) => isActive ? styles.active : styles.link}>Profile</NavLink>
             </div>
+            {props.isAuth
+                ? <div className={styles.item}><NavLink to='/logout'
+                                                        className={({isActive}) => isActive ? styles.active : styles.link}>Logout</NavLink>
+                </div>
+                : <div className={styles.item}><NavLink to='/login'
+                                                        className={({isActive}) => isActive ? styles.active : styles.link}>Login</NavLink>
+                </div>}
             <div className={styles.item}><NavLink to='/users'
                                                   className={({isActive}) => isActive ? styles.active : styles.link}>Users</NavLink>
             </div>
