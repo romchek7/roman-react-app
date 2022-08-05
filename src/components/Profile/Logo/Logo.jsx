@@ -6,7 +6,6 @@ const Logo = (props) => {
     if (!props.profile) {
         return <Preloader/>
     }
-    debugger
     return (
         <div className={x.main}>
             <div className={x.image}>
@@ -15,7 +14,7 @@ const Logo = (props) => {
             </div>
             <div className={x.status}>
                 <p>
-                    {props.profile.aboutMe}
+                    {props.profile.fullName}
                 </p>
             </div>
         </div>

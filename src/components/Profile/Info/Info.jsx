@@ -1,14 +1,12 @@
 import React from "react";
-import x from './Info.module.css'
+import styles from './Info.module.css'
 
 const Info = (props) => {
     return (
-        <div className={x.main}>
-            <div className={x.personalInfo}>
-                {props.profile.fullName}
-            </div>
+        <div className={styles.main}>
+            <div className={styles.personalInfo}><p>{props.profile.fullName}</p></div>
         </div>
-    );
+    )
 }
 
 export default Info;
