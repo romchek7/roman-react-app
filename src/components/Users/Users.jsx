@@ -32,12 +32,14 @@ let Users = (props) => {
             </div>
             <div className={styles.followBtn}>
                 {u.followed
-                    ? <button onClick={() => {
-                        props.onUnfollowUser(u.id)
-                    }}>Unfollow</button>
-                    : <button onClick={() => {
-                        props.onFollowUser(u.id)
-                    }}>Follow</button>
+                    ? <button disabled={props.disabledSubscribeButton.some(id => id === u.id)}
+                              onClick={() => {
+                                  props.onUnfollowUser(u.id)
+                              }}>Unfollow</button>
+                    : <button disabled={props.disabledSubscribeButton.some(id => id === u.id)}
+                              onClick={() => {
+                                  props.onFollowUser(u.id)
+                              }}>Follow</button>
                 }
             </div>
         </div>

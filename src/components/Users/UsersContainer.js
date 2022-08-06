@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from "react-redux"
 import {
     follow,
-    setCurrentPage, setFetchingValue,
+    setCurrentPage, setDisabledButtonValue, setFetchingValue,
     setTotalUsersCount,
     setUsers,
     unFollow
@@ -34,17 +34,21 @@ class UsersAPI extends React.Component {
     }
 
     onFollowUser = (userId) => {
+        this.props.setDisabledButtonValue(true, userId)
         followUnfollowAPI.followUser(userId).then(data => {
             if (data.resultCode === 0) {
                 this.props.follow(userId)
+                this.props.setDisabledButtonValue(false, userId)
             }
         })
     }
 
     onUnfollowUser = (userId) => {
+        this.props.setDisabledButtonValue(true, userId)
         followUnfollowAPI.unfollowUser(userId).then(data => {
             if (data.resultCode === 0) {
                 this.props.unFollow(userId)
+                this.props.setDisabledButtonValue(false, userId)
             }
         })
     }
@@ -54,6 +58,7 @@ class UsersAPI extends React.Component {
             {this.props.isFetching ? <Preloader/> : <Users onPageChanged={this.onPageChanged}
                                                            onFollowUser={this.onFollowUser}
                                                            onUnfollowUser={this.onUnfollowUser}
+                                                           disabledSubscribeButton={this.props.disabledSubscribeButton}
                                                            totalUsersCount={this.props.totalUsersCount}
                                                            pageSize={this.props.pageSize}
                                                            currentPage={this.props.currentPage}
@@ -70,12 +75,13 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         pagesLimit: state.usersPage.pagesLimit,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        disabledSubscribeButton: state.usersPage.disabledSubscribeButton
     }
 }
 
 const UsersContainer = connect(mapStateToProps, {
-    follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, setFetchingValue
+    follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, setFetchingValue, setDisabledButtonValue
 })(UsersAPI)
 
 export default UsersContainer

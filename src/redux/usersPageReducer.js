@@ -4,6 +4,7 @@ const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const SET_FETCHING_VALUE = 'SET_FETCHING_VALUE'
+const SET_DISABLED_VALUE = 'SET_DISABLED_VALUE'
 
 let initialState = {
     users: [],
@@ -11,7 +12,8 @@ let initialState = {
     totalUsersCount: 40,
     currentPage: 1,
     pagesLimit: 5,
-    isFetching: false
+    isFetching: false,
+    disabledSubscribeButton: []
 }
 
 let usersPageReducer = (state = initialState, action) => {
@@ -62,6 +64,14 @@ let usersPageReducer = (state = initialState, action) => {
                 isFetching: action.isFetching
             }
         }
+        case SET_DISABLED_VALUE: {
+            return {
+                ...state,
+                disabledSubscribeButton: action.disabled
+                    ? [...state.disabledSubscribeButton, action.userId]
+                    : [...state.disabledSubscribeButton.filter(id => id !== action.userId)]
+            }
+        }
         default:
             return state
     }
@@ -76,5 +86,6 @@ export let setTotalUsersCount = (totalUsersCount) => ({
     totalUsersCount: totalUsersCount
 })
 export let setFetchingValue = (isFetching) => ({type: SET_FETCHING_VALUE, isFetching})
+export let setDisabledButtonValue = (disabled, userId) => ({type: SET_DISABLED_VALUE, disabled, userId})
 
 export default usersPageReducer
