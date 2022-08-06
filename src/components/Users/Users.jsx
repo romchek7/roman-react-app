@@ -2,7 +2,6 @@ import React from "react"
 import styles from './Users.module.css'
 import userIcon from '../assets/images/account.png'
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -34,32 +33,10 @@ let Users = (props) => {
             <div className={styles.followBtn}>
                 {u.followed
                     ? <button onClick={() => {
-                        axios
-                            .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                withCredentials: true,
-                                headers: {
-                                    "API-KEY": "b3102f96-42ab-48b4-b67a-5b8bfb9599ed"
-                                }
-                            })
-                            .then(response => {
-                                if (response.data.resultCode === 0) {
-                                    props.unFollowUser(u.id)
-                                }
-                            })
+                        props.onUnfollowUser(u.id)
                     }}>Unfollow</button>
                     : <button onClick={() => {
-                        axios
-                            .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                withCredentials: true,
-                                headers: {
-                                    "API-KEY": "b3102f96-42ab-48b4-b67a-5b8bfb9599ed"
-                                }
-                            })
-                            .then(response => {
-                                if (response.data.resultCode === 0) {
-                                    props.followUser(u.id)
-                                }
-                            })
+                        props.onFollowUser(u.id)
                     }}>Follow</button>
                 }
             </div>
