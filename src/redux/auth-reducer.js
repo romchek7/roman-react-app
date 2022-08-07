@@ -1,3 +1,6 @@
+import axios from "axios";
+import {authUserAPI} from "../api/api";
+
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 
 let initialState = {
@@ -21,5 +24,14 @@ const authReducer = (state = initialState, action) => {
 }
 
 export const setAuthUserData = (userId, email, login) => ({type: SET_AUTH_USER_DATA, data: {userId, email, login}})
+
+export const getAuthUserData = () => (dispatch) => {
+    authUserAPI.getAuthUser().then(data => {
+        if (data.resultCode === 0) {
+            let {id, login, email} = data.data
+            dispatch(setAuthUserData(id, email, login))
+        }
+    })
+}
 
 export default authReducer

@@ -1,56 +1,32 @@
 import React from 'react'
 import {connect} from "react-redux"
 import {
-    follow,
-    setCurrentPage, setDisabledButtonValue, setFetchingValue,
-    setTotalUsersCount,
-    setUsers,
-    unFollow
+    follow, unFollow,
+    setCurrentPage, setDisabledButtonValue,
+    getUsersThunk, followUserThunk, unfollowUserThunk
 } from "../../redux/usersPageReducer"
 import Preloader from "../common/Preloader/Preloader";
 import Users from "./Users";
-import {followUnfollowAPI, usersAPI} from "../../api/api";
 
 class UsersAPI extends React.Component {
     componentDidMount() {
         if (this.props.users.length === 0) {
-            this.props.setFetchingValue(true)
-            usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-                this.props.setFetchingValue(false)
-            })
+            this.props.getUsersThunk(this.props.currentPage, this.props.pageSize)
         }
     }
 
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber)
-        this.props.setFetchingValue(true)
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.setUsers(data.items)
-            this.props.setFetchingValue(false)
-        })
+        this.props.getUsersThunk(pageNumber, this.props.pageSize)
         window.scrollTo({behavior: 'smooth', top: '0px'})
     }
 
     onFollowUser = (userId) => {
-        this.props.setDisabledButtonValue(true, userId)
-        followUnfollowAPI.followUser(userId).then(data => {
-            if (data.resultCode === 0) {
-                this.props.follow(userId)
-                this.props.setDisabledButtonValue(false, userId)
-            }
-        })
+        this.props.followUserThunk(userId)
     }
 
     onUnfollowUser = (userId) => {
-        this.props.setDisabledButtonValue(true, userId)
-        followUnfollowAPI.unfollowUser(userId).then(data => {
-            if (data.resultCode === 0) {
-                this.props.unFollow(userId)
-                this.props.setDisabledButtonValue(false, userId)
-            }
-        })
+        this.props.unfollowUserThunk(userId)
     }
 
     render() {
@@ -81,7 +57,7 @@ let mapStateToProps = (state) => {
 }
 
 const UsersContainer = connect(mapStateToProps, {
-    follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, setFetchingValue, setDisabledButtonValue
+    follow, unFollow, setCurrentPage, setDisabledButtonValue, getUsersThunk, followUserThunk, unfollowUserThunk
 })(UsersAPI)
 
 export default UsersContainer

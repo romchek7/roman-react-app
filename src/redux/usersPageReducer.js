@@ -1,3 +1,5 @@
+import {followUnfollowAPI, usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -87,5 +89,34 @@ export let setTotalUsersCount = (totalUsersCount) => ({
 })
 export let setFetchingValue = (isFetching) => ({type: SET_FETCHING_VALUE, isFetching})
 export let setDisabledButtonValue = (disabled, userId) => ({type: SET_DISABLED_VALUE, disabled, userId})
+
+export const getUsersThunk = (currentPage, pageSize) => (dispatch) => {
+    dispatch(setFetchingValue(true))
+    usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUsersCount(data.totalCount))
+        dispatch(setFetchingValue(false))
+    })
+}
+
+export const followUserThunk = (userId) => (dispatch) => {
+    dispatch(setDisabledButtonValue(true, userId))
+    followUnfollowAPI.followUser(userId).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(follow(userId))
+            dispatch(setDisabledButtonValue(false, userId))
+        }
+    })
+}
+
+export const unfollowUserThunk = (userId) => (dispatch) => {
+    dispatch(setDisabledButtonValue(true, userId))
+    followUnfollowAPI.unfollowUser(userId).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(unFollow(userId))
+            dispatch(setDisabledButtonValue(false, userId))
+        }
+    })
+}
 
 export default usersPageReducer
