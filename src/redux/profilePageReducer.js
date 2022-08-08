@@ -46,7 +46,6 @@ export let updatePostCreator = (text) => ({type: UPDATE_POST, text: text})
 export let setUsersProfile = (profile) => ({type: SET_USERS_PROFILE, profile})
 
 export const getProfileThunk = (userId) => (dispatch) => {
-    debugger
     profileAPI.getProfile(userId).then(data => {
         dispatch(setUsersProfile(data))
     })

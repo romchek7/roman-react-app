@@ -2,6 +2,7 @@ import React from "react";
 import styles from './UserInformation.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import userLogo from '../../assets/images/account.png'
+import ProfileStatus from "./ProfileStatus";
 
 const UserInformation = (props) => {
     if (!props.profile) {
@@ -19,6 +20,7 @@ const UserInformation = (props) => {
                     <p>{props.profile.fullName}</p>
                     <p>{props.profile.aboutMe}</p>
                     <p>{props.profile.lookingForAJobDescription}</p>
+                    <ProfileStatus status={'Hello world!'}/>
                 </div>
             </div>
         </div>
