@@ -7,8 +7,10 @@ import {
 } from "../../redux/usersPageReducer"
 import Preloader from "../common/Preloader/Preloader";
 import Users from "./Users";
+import {compose} from "redux";
+import {withAuthUserRedirect} from "../../hoc/withAuthUserRedirect";
 
-class UsersAPI extends React.Component {
+class UsersContainer extends React.Component {
     componentDidMount() {
         if (this.props.users.length === 0) {
             this.props.getUsersThunk(this.props.currentPage, this.props.pageSize)
@@ -56,8 +58,15 @@ let mapStateToProps = (state) => {
     }
 }
 
-const UsersContainer = connect(mapStateToProps, {
-    follow, unFollow, setCurrentPage, setDisabledButtonValue, getUsersThunk, followUserThunk, unfollowUserThunk
-})(UsersAPI)
-
-export default UsersContainer
+export default compose(
+    connect(mapStateToProps, {
+        follow,
+        unFollow,
+        setCurrentPage,
+        setDisabledButtonValue,
+        getUsersThunk,
+        followUserThunk,
+        unfollowUserThunk
+    }),
+    withAuthUserRedirect
+)(UsersContainer)

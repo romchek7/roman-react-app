@@ -9,6 +9,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
+import Login from "./components/Login/Login";
 
 const App = () => {
     return (
@@ -26,7 +27,7 @@ const App = () => {
                         </Route>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/users' element={<UsersContainer/>}/>
-                        <Route path='/login'/>
+                        <Route path='/login' element={<Login/>}/>
                     </Routes>
                 </div>
                 <Footer/>
