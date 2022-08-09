@@ -6,7 +6,11 @@
 
 .app-wrapper-content {
     grid-area: c;
-    background-color: rgb(40, 40, 40);
+    background-image: url("./components/assets/images/svgReactBackground.svg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
