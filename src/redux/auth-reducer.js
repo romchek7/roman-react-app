@@ -1,4 +1,3 @@
-import axios from "axios";
 import {authUserAPI} from "../api/api";
 
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'

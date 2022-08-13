@@ -3,19 +3,35 @@ import styles from './UserInformation.module.css'
 
 class ProfileStatus extends React.Component {
     state = {
-        editStatusMode: false
+        editStatusMode: false,
+        status: this.props.status
     }
 
-    onClickActivateStatusMode() {
+    onClickActivateStatusMode = () => {
         this.setState({
             editStatusMode: true
         })
     }
 
-    onClickDeactivateStatusMode() {
+    onClickDeactivateStatusMode = () => {
         this.setState({
             editStatusMode: false
         })
+        this.props.updateUserStatusThunk(this.state.status)
+    }
+
+    onUserStatusUpdate = (e) => {
+        this.setState({
+            status: e.currentTarget.value
+        })
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                state: this.props.status
+            })
+        }
     }
 
     render() {
@@ -23,11 +39,12 @@ class ProfileStatus extends React.Component {
             <div>
                 {!this.state.editStatusMode
                     ? <div>
-                        <p onDoubleClick={this.onClickActivateStatusMode.bind(this)}>{this.props.status}</p>
+                        <p onDoubleClick={this.onClickActivateStatusMode}>{this.props.status || "No status"}</p>
                     </div>
                     : <div>
-                        <input autoFocus={true} onBlur={this.onClickDeactivateStatusMode.bind(this)}
-                               value={this.props.status}
+                        <input autoFocus={true} onBlur={this.onClickDeactivateStatusMode}
+                               value={this.state.status}
+                               onChange={this.onUserStatusUpdate}
                                className={styles.inputStatus}/>
                     </div>
                 }
