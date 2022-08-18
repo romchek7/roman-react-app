@@ -1,0 +1,8 @@
+.activeError {
+    color: #E60F0F;
+    font-weight: bold;
+}
+
+.notActiveError {
+    display: none;
+}

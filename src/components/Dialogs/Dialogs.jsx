@@ -3,11 +3,16 @@ import style from './Dialogs.module.css'
 import Dialog from "./Dialog/Dialog"
 import Messages from "./Messages/Messages";
 import {Field, reduxForm} from "redux-form";
+import {TextArea} from "../common/FormValidationControl/FormValidationControl";
+import {isRequired, maxLength, minLength} from "../../validation/validators";
+
+const maxLength10 = maxLength(10)
+const minLength1 = minLength(1)
 
 const CreateMessageForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field name={'message'} component={'textarea'} placeholder="Write a message..."/>
+            <Field name={'message'} component={TextArea} placeholder="Write a message..." validate={[isRequired, maxLength10, minLength1]}/>
             <button>Send</button>
         </form>
     )
@@ -22,6 +27,7 @@ const Dialogs = (props) => {
     let messagesElements = props.dialogsPage.messagesArray.map(m => <Messages id={m.id} message={m.message}/>)
 
     let onSubmit = (formValue) => {
+        debugger
         props.addMessage(formValue.message)
     }
 
