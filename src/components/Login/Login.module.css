@@ -46,3 +46,11 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
+.loginErrorActive {
+    color: #E60F0F;
+}
+
+.loginErrorNotActive {
+    display: none;
+}

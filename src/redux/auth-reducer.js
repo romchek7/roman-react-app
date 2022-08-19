@@ -1,4 +1,5 @@
-import {authUserAPI} from "../api/api";
+import {authUserAPI} from "../api/api"
+import {stopSubmit} from "redux-form"
 
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 
@@ -36,6 +37,10 @@ export const logInUser = (email, password, rememberMe) => (dispatch) => {
     authUserAPI.logIn(email, password, rememberMe).then(data => {
         if (data.resultCode === 0 ) {
             dispatch(getAuthUserData())
+        }
+        else {
+            let message = data.messages.length > 0 ? data.messages[0] : 'Invalid login or password'
+            dispatch(stopSubmit('login', {_error: message}))
         }
     })
 }

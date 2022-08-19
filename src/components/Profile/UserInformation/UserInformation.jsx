@@ -3,7 +3,6 @@ import styles from './UserInformation.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import userLogo from '../../assets/images/account.png'
 import ProfileStatus from "./ProfileStatus";
-import {logOutUser} from "../../../redux/auth-reducer";
 
 const UserInformation = (props) => {
     if (!props.profile) {
@@ -20,8 +19,7 @@ const UserInformation = (props) => {
                 <div className={styles.userTextInfo}>
                     <div className={styles.userNameLogOut}>
                         <p>{props.profile.fullName}</p>
-                        <button onClick={() => {props.logOutUser()}}
-                            className={props.authUserId === props.profile.userId ? styles.active : styles.notActive}>Logout</button>
+                        <button onClick={props.logOutUser} className={props.authUserId === props.profile.userId ? styles.active : styles.notActive}>Logout</button>
                     </div>
                     <p>{props.profile.aboutMe}</p>
                     <p>{props.profile.lookingForAJobDescription}</p>
