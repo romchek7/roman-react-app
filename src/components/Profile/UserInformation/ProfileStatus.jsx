@@ -39,7 +39,10 @@ class ProfileStatus extends React.Component {
             <div>
                 {!this.state.editStatusMode
                     ? <div>
-                        <p onDoubleClick={this.onClickActivateStatusMode}>{this.props.status || "No status"}</p>
+                        {this.props.authUserId !== this.props.userId
+                            ? <p>{this.props.status || "No status"}</p>
+                            : <p onDoubleClick={this.onClickActivateStatusMode}>{this.props.status || "No status"}</p>
+                        }
                     </div>
                     : <div>
                         <input autoFocus={true} onBlur={this.onClickDeactivateStatusMode}

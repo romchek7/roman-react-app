@@ -23,7 +23,8 @@ const UserInformation = (props) => {
                     </div>
                     <p>{props.profile.aboutMe}</p>
                     <p>{props.profile.lookingForAJobDescription}</p>
-                    <ProfileStatus status={props.status} updateUserStatusThunk={props.updateUserStatusThunk}/>
+                    <ProfileStatus authUserId={props.authUserId} userId={props.profile.userId}
+                        status={props.status} updateUserStatusThunk={props.updateUserStatusThunk}/>
                 </div>
             </div>
         </div>
