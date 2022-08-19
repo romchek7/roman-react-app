@@ -27,7 +27,6 @@ const Dialogs = (props) => {
     let messagesElements = props.dialogsPage.messagesArray.map(m => <Messages id={m.id} message={m.message}/>)
 
     let onSubmit = (formValue) => {
-        debugger
         props.addMessage(formValue.message)
     }
 
