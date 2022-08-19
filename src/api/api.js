@@ -33,13 +33,13 @@ export const followUnfollowAPI = {
 }
 
 export const profileAPI = {
-    getProfile(userId = 25095) {
+    getProfile(userId) {
         return instance.get(`profile/${userId}`).then(response => {
             return response.data
         })
     },
 
-    getUserStatus(userId = 25095) {
+    getUserStatus(userId) {
         return instance.get(`profile/status/${userId}`)
     },
 
@@ -51,6 +51,18 @@ export const profileAPI = {
 export const authUserAPI = {
     getAuthUser() {
         return instance.get(`auth/me`).then(response => {
+            return response.data
+        })
+    },
+
+    logIn(email, password, rememberMe) {
+        return instance.post(`auth/login`, {email: email, password: password, rememberMe: rememberMe}).then(response => {
+            return response.data
+        })
+    },
+
+    logOut() {
+        return instance.delete(`auth/login`).then(response => {
             return response.data
         })
     }

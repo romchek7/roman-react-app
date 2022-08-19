@@ -8,6 +8,8 @@ const Profile = (props) => {
         <div className={styles.main}>
             <UserInformation profile={props.profile}
                              status={props.status}
+                             authUserId={props.authUserId}
+                             logOutUser={props.logOutUser}
                              updateUserStatusThunk={props.updateUserStatusThunk}/>
             <PostsContainer/>
         </div>

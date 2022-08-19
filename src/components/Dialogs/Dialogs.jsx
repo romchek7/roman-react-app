@@ -6,13 +6,13 @@ import {Field, reduxForm} from "redux-form";
 import {TextArea} from "../common/FormValidationControl/FormValidationControl";
 import {isRequired, maxLength, minLength} from "../../validation/validators";
 
-const maxLength10 = maxLength(10)
+const maxLength1000 = maxLength(1000)
 const minLength1 = minLength(1)
 
 const CreateMessageForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field name={'message'} component={TextArea} placeholder="Write a message..." validate={[isRequired, maxLength10, minLength1]}/>
+            <Field name={'message'} component={TextArea} placeholder="Write a message..." validate={[isRequired, maxLength1000, minLength1]}/>
             <button>Send</button>
         </form>
     )

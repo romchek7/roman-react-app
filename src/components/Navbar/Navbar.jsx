@@ -12,9 +12,7 @@ const Navbar = (props) => {
                                                   className={({isActive}) => isActive ? styles.active : styles.link}>Profile</NavLink>
             </div>
             {props.isAuth
-                ? <div className={styles.item}><NavLink to='/logout'
-                                                        className={({isActive}) => isActive ? styles.active : styles.link}>Logout</NavLink>
-                </div>
+                ? undefined
                 : <div className={styles.item}><NavLink to='/login'
                                                         className={({isActive}) => isActive ? styles.active : styles.link}>Login</NavLink>
                 </div>}

@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import {useParams} from "react-router-dom"
 import {compose} from "redux";
 import {withAuthUserRedirect} from "../../hoc/withAuthUserRedirect";
+import {logOutUser} from "../../redux/auth-reducer";
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
@@ -31,6 +32,7 @@ class ProfileContainer extends React.Component {
             <Profile {...this.props}
                      profile={this.props.profile}
                      status={this.props.status}
+                     logOutUser={this.props.logOutUser}
                      updateUserStatusThunk={this.props.updateUserStatusThunk}/>
         )
     }
@@ -45,7 +47,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, {setUsersProfile, getProfileThunk, getUserStatusThunk, updateUserStatusThunk}),
+    connect(mapStateToProps, {setUsersProfile, getProfileThunk, getUserStatusThunk, updateUserStatusThunk, logOutUser}),
     withRouter,
     withAuthUserRedirect
 )(ProfileContainer)

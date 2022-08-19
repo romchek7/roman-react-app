@@ -1,23 +1,19 @@
-export const isRequired = value => {
-    if (value) {
-        return undefined
-    }
+export const isRequired = value =>
+    value
+        ? undefined
+        : 'Field is required'
 
-    return 'Field is required'
-}
+export const maxLength = max => value =>
+    value.length > max
+        ? `Must be ${max} characters or less`
+        : undefined
 
-export const maxLength = max => value => {
-    if (value.length > max) {
-        return `Must be ${max} characters or less`
-    }
+export const minLength = min => value =>
+    value.length < min
+        ? `Must be ${min} characters or more`
+        : undefined
 
-    return undefined
-}
-
-export const minLength = min => value => {
-    if (value.length < min) {
-        return `Must be ${min} characters or more`
-    }
-
-    return undefined
-}
+export const email = value =>
+    value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+        ? 'Invalid email address'
+        : undefined
