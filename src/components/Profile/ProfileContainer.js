@@ -5,6 +5,7 @@ import {
     setUsersProfile,
     updateUserStatusThunk
 } from "../../redux/profilePageReducer";
+import {getAuthUserId, getNeedUserId, getProfileSelector, getStatusSelector} from '../../selectors/profileSelectors'
 import {connect} from "react-redux";
 import Profile from "./Profile";
 import {useParams} from "react-router-dom"
@@ -57,10 +58,10 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile,
-        status: state.profilePage.status,
-        authUserId: state.auth.userId,
-        needUserId: state.profilePage.needUserId
+        profile: getProfileSelector(state),
+        status: getStatusSelector(state),
+        authUserId: getAuthUserId(state),
+        needUserId: getNeedUserId(state)
     }
 }
 

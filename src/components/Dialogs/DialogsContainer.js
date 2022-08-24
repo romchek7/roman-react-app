@@ -4,10 +4,11 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withAuthUserRedirect} from "../../hoc/withAuthUserRedirect";
+import {getDialogsSelector} from "../../selectors/dialogsSelectors";
 
 let mapStateToProps = (state) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: getDialogsSelector(state)
     }
 }
 

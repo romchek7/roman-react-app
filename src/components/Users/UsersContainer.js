@@ -9,6 +9,12 @@ import Preloader from "../common/Preloader/Preloader";
 import Users from "./Users";
 import {compose} from "redux";
 import {withAuthUserRedirect} from "../../hoc/withAuthUserRedirect";
+import {
+    getCurrentPageSelector, getDisabledSubscribeButtonSelector, getIsFetchingSelector, getPagesLimitSelector,
+    getTotalUsersCountSelector,
+    getUsersPageSizeSelector,
+    getUsersSelector
+} from "../../selectors/usersSelectors";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -48,13 +54,13 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        pagesLimit: state.usersPage.pagesLimit,
-        isFetching: state.usersPage.isFetching,
-        disabledSubscribeButton: state.usersPage.disabledSubscribeButton
+        users: getUsersSelector(state),
+        pageSize: getUsersPageSizeSelector(state),
+        totalUsersCount: getTotalUsersCountSelector(state),
+        currentPage: getCurrentPageSelector(state),
+        pagesLimit: getPagesLimitSelector(state),
+        isFetching: getIsFetchingSelector(state),
+        disabledSubscribeButton: getDisabledSubscribeButtonSelector(state)
     }
 }
 

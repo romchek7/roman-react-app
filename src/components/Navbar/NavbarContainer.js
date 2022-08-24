@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from "./Navbar"
 import {connect} from "react-redux";
+import {getAuthSelector} from "../../selectors/authSelectors";
 
 class NavbarContainer extends React.Component {
     render() {
@@ -9,8 +10,7 @@ class NavbarContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-        isAuth: state.auth.isAuth,
-        login: state.auth.login
+        isAuth: getAuthSelector(state)
     }
 )
 

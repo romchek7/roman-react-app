@@ -14,6 +14,7 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {appInitializeThunk} from "./redux/app-initialization-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import {getInitializationApp} from "./selectors/initializationSelectors";
 
 class App extends React.Component {
     componentDidMount() {
@@ -52,7 +53,7 @@ class App extends React.Component {
 
 let mapStateToProps = (state) => {
     return ({
-        initialized: state.appInitialization.initialized
+        initialized: getInitializationApp(state)
     })
 }
 
