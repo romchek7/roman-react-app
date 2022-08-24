@@ -53,7 +53,9 @@
     font-size: 40px;
 }
 
-.userNameLogOut button {
+.userNameLogOut button,
+.saveBtn,
+.cancelBtn {
     margin: 10px;
     border-radius: 5px;
     font-size: 15px;
@@ -61,7 +63,15 @@
     padding: revert;
 }
 
-.userNameLogOut button:hover {
+.cancelBtn {
+    background-color: #E60F0F;
+    color: rgb(230, 230, 230);
+    border-color: rgb(230, 230, 230);
+}
+
+.userNameLogOut button:hover,
+.saveBtn:hover,
+.cancelBtn:hover {
     cursor: pointer;
     color: rgb(179, 21, 21);
     border-color: rgb(179, 21, 21);

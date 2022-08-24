@@ -17,6 +17,12 @@ class ProfileStatus extends React.Component {
         this.setState({
             editStatusMode: false
         })
+    }
+
+    onClickDeactivateStatusModeAndUpdateStatus = () => {
+        this.setState({
+            editStatusMode: false
+        })
         this.props.updateUserStatusThunk(this.state.status)
     }
 
@@ -45,10 +51,12 @@ class ProfileStatus extends React.Component {
                         }
                     </div>
                     : <div>
-                        <input autoFocus={true} onBlur={this.onClickDeactivateStatusMode}
+                        <input autoFocus={true}
                                value={this.state.status}
                                onChange={this.onUserStatusUpdate}
                                className={styles.inputStatus}/>
+                        <button onClick={this.onClickDeactivateStatusMode} className={styles.cancelBtn}>Cancel</button>
+                        <button onClick={this.onClickDeactivateStatusModeAndUpdateStatus} className={styles.saveBtn}>Save</button>
                     </div>
                 }
             </div>
