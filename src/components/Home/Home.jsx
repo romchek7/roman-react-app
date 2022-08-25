@@ -1,10 +1,18 @@
 import React from "react";
-import style from './Home.module.css';
+import styles from './Home.module.css';
 
-const Home = () => {
+let Home = () => {
     return (
-        <div className={style.main}>
-            Home
+        <div className={styles.main}>
+            <div className={styles.content}>
+                <div className={styles.leftSide}>
+                    <div>Profile</div>
+                </div>
+                <div className={styles.rightSide}>
+                    <div className={styles.friends}>Friends</div>
+                    <div className={styles.messages}>Messages</div>
+                </div>
+            </div>
         </div>
     );
 }
