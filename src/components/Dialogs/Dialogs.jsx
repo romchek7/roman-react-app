@@ -5,6 +5,11 @@ import Messages from "./Messages/Messages";
 import {Field, reduxForm} from "redux-form";
 import {TextArea} from "../common/FormValidationControl/FormValidationControl";
 import {isRequired, maxLength, minLength} from "../../validation/validators";
+import {getDialogsSelector} from "../../selectors/dialogsSelectors";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {addMessage} from "../../redux/dialogsPageReducer";
+import {withAuthUserRedirect} from "../../hoc/withAuthUserRedirect";
 
 const maxLength1000 = maxLength(1000)
 const minLength1 = minLength(1)
@@ -57,4 +62,13 @@ const Dialogs = (props) => {
     )
 }
 
-export default Dialogs
+let mapStateToProps = (state) => {
+    return {
+        dialogsPage: getDialogsSelector(state)
+    }
+}
+
+export default compose(
+    connect(mapStateToProps, {addMessage}),
+    withAuthUserRedirect
+)(Dialogs)

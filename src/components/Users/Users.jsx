@@ -1,9 +1,45 @@
-import React from "react"
+import React, {useEffect} from "react"
 import styles from './Users.module.css'
 import userIcon from '../assets/images/account.png'
 import {NavLink} from "react-router-dom";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {
+    follow,
+    followUserThunk,
+    getUsersThunk,
+    setCurrentPage,
+    setDisabledButtonValue,
+    unFollow, unfollowUserThunk
+} from "../../redux/usersPageReducer";
+import {withAuthUserRedirect} from "../../hoc/withAuthUserRedirect";
+import {
+    getCurrentPageSelector, getDisabledSubscribeButtonSelector, getIsFetchingSelector, getPagesLimitSelector,
+    getTotalUsersCountSelector,
+    getUsersPageSizeSelector,
+    getUsersSelector
+} from "../../selectors/usersSelectors";
+import Preloader from "../common/Preloader/Preloader";
 
 let Users = (props) => {
+    useEffect(() => {
+        props.getUsersThunk(props.currentPage, props.pageSize)
+    }, [props.users.length])
+
+    const onPageChanged = (pageNumber) => {
+        props.setCurrentPage(pageNumber)
+        props.getUsersThunk(pageNumber, props.pageSize)
+        window.scrollTo({behavior: 'smooth', top: '0px'})
+    }
+
+    const onFollowUser = (userId) => {
+        props.followUserThunk(userId)
+    }
+
+    const onUnfollowUser = (userId) => {
+        props.unfollowUserThunk(userId)
+    }
+
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
     let pages = () => {
@@ -13,7 +49,7 @@ let Users = (props) => {
 
     let pagesElements = pages().map(p =>
         <div onClick={(e) => {
-            props.onPageChanged(p)
+            onPageChanged(p)
         }}
              className={props.currentPage === p ? styles.paginationNumberActive : styles.paginationNumber}>
             {p}
@@ -34,11 +70,11 @@ let Users = (props) => {
                 {u.followed
                     ? <button disabled={props.disabledSubscribeButton.some(id => id === u.id)}
                               onClick={() => {
-                                  props.onUnfollowUser(u.id)
+                                  onUnfollowUser(u.id)
                               }}>Unfollow</button>
                     : <button disabled={props.disabledSubscribeButton.some(id => id === u.id)}
                               onClick={() => {
-                                  props.onFollowUser(u.id)
+                                  onFollowUser(u.id)
                               }}>Follow</button>
                 }
             </div>
@@ -46,43 +82,68 @@ let Users = (props) => {
     ))
 
     return (
-        <div className={styles.main}>
-            <div className={styles.users}>
-                {usersElements}
-                <div className={styles.paginationNumbers}>
-                    <div
-                        className={props.currentPage > props.pagesLimit ? styles.paginationNumber : styles.paginationNumberHold}
-                        onClick={() => {
-                            props.onPageChanged(1)
-                        }}>
-                        First page
-                    </div>
-                    <div
-                        onClick={() => {
-                            props.onPageChanged(props.currentPage - 1)
-                        }}
-                        className={props.currentPage > 1 ? styles.paginationNumber : styles.paginationNumberHold}>
-                        Previous
-                    </div>
-                    {pagesElements}
-                    <div
-                        onClick={() => {
-                            props.onPageChanged(props.currentPage + 1)
-                        }}
-                        className={props.currentPage === pagesCount ? styles.paginationNumberHold : styles.paginationNumber}>
-                        Next
-                    </div>
-                    <div
-                        className={props.currentPage <= (pagesCount - props.pagesLimit) ? styles.paginationNumber : styles.paginationNumberHold}
-                        onClick={() => {
-                            props.onPageChanged(pagesCount)
-                        }}>
-                        Last page
+        props.isFetching
+                ? <Preloader/>
+                : <div className={styles.main}>
+                    <div className={styles.users}>
+                        {usersElements}
+                        <div className={styles.paginationNumbers}>
+                            <div
+                                className={props.currentPage > props.pagesLimit ? styles.paginationNumber : styles.paginationNumberHold}
+                                onClick={() => {
+                                    onPageChanged(1)
+                                }}>
+                                First page
+                            </div>
+                            <div
+                                onClick={() => {
+                                    onPageChanged(props.currentPage - 1)
+                                }}
+                                className={props.currentPage > 1 ? styles.paginationNumber : styles.paginationNumberHold}>
+                                Previous
+                            </div>
+                            {pagesElements}
+                            <div
+                                onClick={() => {
+                                    onPageChanged(props.currentPage + 1)
+                                }}
+                                className={props.currentPage === pagesCount ? styles.paginationNumberHold : styles.paginationNumber}>
+                                Next
+                            </div>
+                            <div
+                                className={props.currentPage <= (pagesCount - props.pagesLimit) ? styles.paginationNumber : styles.paginationNumberHold}
+                                onClick={() => {
+                                    onPageChanged(pagesCount)
+                                }}>
+                                Last page
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
     )
 }
 
-export default Users
+let mapStateToProps = (state) => {
+    return {
+        users: getUsersSelector(state),
+        pageSize: getUsersPageSizeSelector(state),
+        totalUsersCount: getTotalUsersCountSelector(state),
+        currentPage: getCurrentPageSelector(state),
+        pagesLimit: getPagesLimitSelector(state),
+        isFetching: getIsFetchingSelector(state),
+        disabledSubscribeButton: getDisabledSubscribeButtonSelector(state)
+    }
+}
+
+export default compose(
+    connect(mapStateToProps, {
+        follow,
+        unFollow,
+        setCurrentPage,
+        setDisabledButtonValue,
+        getUsersThunk,
+        followUserThunk,
+        unfollowUserThunk
+    }),
+    withAuthUserRedirect
+)(Users)

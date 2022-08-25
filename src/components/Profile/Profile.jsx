@@ -1,9 +1,36 @@
-import React from "react"
+import React, {useEffect} from "react"
 import styles from './Profile.module.css'
 import UserInformation from './UserInformation/UserInformation'
-import PostsContainer from "./Posts/PostsContainer";
+import {getAuthUserId, getNeedUserId, getProfileSelector, getStatusSelector} from "../../selectors/profileSelectors";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {
+    getProfileThunk,
+    getUserStatusThunk,
+    setUsersProfile,
+    updateUserStatusThunk
+} from "../../redux/profilePageReducer";
+import {logOutUser} from "../../redux/auth-reducer";
+import {withAuthUserRedirect} from "../../hoc/withAuthUserRedirect";
+import {useParams} from "react-router-dom";
+import Posts from "./Posts/Posts";
 
 const Profile = (props) => {
+    const params = useParams();
+
+    useEffect(() => {
+        getUserProfile()
+    }, [params.userId])
+
+    const getUserProfile = () => {
+        let userId = params.userId;
+        if (!userId) {
+            userId = props.authUserId;
+        }
+        props.getProfileThunk(userId)
+        props.getUserStatusThunk(userId)
+    }
+
     return (
         <div className={styles.main}>
             <UserInformation profile={props.profile}
@@ -11,9 +38,23 @@ const Profile = (props) => {
                              authUserId={props.authUserId}
                              logOutUser={props.logOutUser}
                              updateUserStatusThunk={props.updateUserStatusThunk}/>
-            <PostsContainer/>
+            <Posts/>
         </div>
     );
 }
 
-export default Profile;
+let mapStateToProps = (state) => {
+    return {
+        profile: getProfileSelector(state),
+        status: getStatusSelector(state),
+        authUserId: getAuthUserId(state),
+        needUserId: getNeedUserId(state)
+    }
+}
+
+export default compose(
+    connect(mapStateToProps, {
+        setUsersProfile, getProfileThunk, getUserStatusThunk,
+        updateUserStatusThunk, logOutUser}),
+    withAuthUserRedirect
+)(Profile)

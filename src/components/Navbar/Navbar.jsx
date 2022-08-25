@@ -1,6 +1,8 @@
 import React from "react";
 import styles from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
+import {getAuthSelector} from "../../selectors/authSelectors";
+import {connect} from "react-redux";
 
 const Navbar = (props) => {
     return (
@@ -22,11 +24,13 @@ const Navbar = (props) => {
             <div className={styles.item}><NavLink to='/dialogs'
                                                   className={({isActive}) => isActive ? styles.active : styles.link}>Messages</NavLink>
             </div>
-            <div className={styles.item}><NavLink to='/news'
-                                                  className={({isActive}) => isActive ? styles.active : styles.link}>News</NavLink>
-            </div>
         </nav>
     );
 }
 
-export default Navbar;
+let mapStateToProps = (state) => ({
+        isAuth: getAuthSelector(state)
+    }
+)
+
+export default connect(mapStateToProps, null)(Navbar)

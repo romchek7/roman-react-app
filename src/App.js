@@ -4,17 +4,15 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Home from './components/Home/Home';
 import Footer from './components/Footer/Footer';
 import Dialogs from './components/Dialogs/Dialogs';
-import News from './components/News/News';
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import NavbarContainer from "./components/Navbar/NavbarContainer";
 import Login from "./components/Login/Login";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {appInitializeThunk} from "./redux/app-initialization-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import {getInitializationApp} from "./selectors/initializationSelectors";
+import Profile from "./components/Profile/Profile";
+import Users from "./components/Users/Users";
+import Navbar from "./components/Navbar/Navbar";
 
 class App extends React.Component {
     componentDidMount() {
@@ -29,18 +27,17 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div className='app-wrapper'>
-                    <NavbarContainer/>
+                    <Navbar/>
                     <div className='app-wrapper-content'>
                         <Routes>
                             <Route path='/home' element={<Home/>}/>
-                            <Route path='/dialogs' element={<DialogsContainer/>}>
+                            <Route path='/dialogs' element={<Dialogs/>}>
                                 <Route path=':id' element={<Dialogs/>}/>
                             </Route>
-                            <Route path='/profile' element={<ProfileContainer/>}>
-                                <Route exact path=':userId' element={<ProfileContainer/>}/>
+                            <Route path='/profile' element={<Profile/>}>
+                                <Route exact path=':userId' element={<Profile/>}/>
                             </Route>
-                            <Route path='/news' element={<News/>}/>
-                            <Route path='/users' element={<UsersContainer/>}/>
+                            <Route path='/users' element={<Users/>}/>
                             <Route path='/login' element={<Login/>}/>
                         </Routes>
                     </div>

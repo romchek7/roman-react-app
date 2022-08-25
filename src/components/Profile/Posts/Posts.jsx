@@ -4,6 +4,9 @@ import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
 import {TextArea} from "../../common/FormValidationControl/FormValidationControl";
 import {isRequired, maxLength, minLength} from "../../../validation/validators";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {addPost} from "../../../redux/profilePageReducer";
 
 const minLength10 = minLength(10)
 const maxLength10000 = maxLength(10000)
@@ -24,7 +27,7 @@ const CreatePostReduxForm = reduxForm({
 })(CreatePostForm)
 
 const Posts = (props) => {
-    let postsElements = props.profilePage.postsArray.map(p => <Post id={p.id} text={p.message} likes={p.likes}/>)
+    let postsElements = props.postsArray.map(p => <Post id={p.id} text={p.message} likes={p.likes}/>)
 
     let onSubmit = (formData) => {
         props.addPost(formData.newPostText)
@@ -40,4 +43,12 @@ const Posts = (props) => {
     )
 }
 
-export default Posts
+const mapStateToProps = (state) => {
+    return {
+        postsArray: state.profilePage.postsArray
+    }
+}
+
+export default compose(
+    connect(mapStateToProps, {addPost})
+)(Posts)
