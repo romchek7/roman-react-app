@@ -1,67 +1,51 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import styles from './UserInformation.module.css'
 
-class ProfileStatus extends React.Component {
-    state = {
-        editStatusMode: false,
-        status: this.props.status
+let ProfileStatus = (props) => {
+    let [status, setStatus] = useState(props.status)
+    let [editStatusMode, setEditStatusMode] = useState(false)
+
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
+
+    const onClickActivateStatusMode = () => {
+        setEditStatusMode(true)
     }
 
-    onClickActivateStatusMode = () => {
-        this.setState({
-            editStatusMode: true
-        })
+    const onUserStatusUpdate = (e) => {
+        setStatus(e.currentTarget.value)
     }
 
-    onClickDeactivateStatusMode = () => {
-        this.setState({
-            editStatusMode: false
-        })
+    const onClickDeactivateStatusMode = () => {
+        setEditStatusMode(false)
     }
 
-    onClickDeactivateStatusModeAndUpdateStatus = () => {
-        this.setState({
-            editStatusMode: false
-        })
-        this.props.updateUserStatusThunk(this.state.status)
+    const onClickDeactivateStatusModeAndUpdateStatus = () => {
+        setEditStatusMode(false)
+        props.updateUserStatusThunk(status)
     }
 
-    onUserStatusUpdate = (e) => {
-        this.setState({
-            status: e.currentTarget.value
-        })
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                state: this.props.status
-            })
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                {!this.state.editStatusMode
-                    ? <div>
-                        {this.props.authUserId !== this.props.userId
-                            ? <p>{this.props.status || "No status"}</p>
-                            : <p onDoubleClick={this.onClickActivateStatusMode}>{this.props.status || "No status"}</p>
-                        }
-                    </div>
-                    : <div>
-                        <input autoFocus={true}
-                               value={this.state.status}
-                               onChange={this.onUserStatusUpdate}
-                               className={styles.inputStatus}/>
-                        <button onClick={this.onClickDeactivateStatusMode} className={styles.cancelBtn}>Cancel</button>
-                        <button onClick={this.onClickDeactivateStatusModeAndUpdateStatus} className={styles.saveBtn}>Save</button>
-                    </div>
-                }
-            </div>
-        )
-    }
+    return (
+        <div>
+            {!editStatusMode
+                ? <div>
+                    {props.authUserId !== props.userId
+                        ? <p>{props.status || "No status"}</p>
+                        : <p onDoubleClick={onClickActivateStatusMode}>{props.status || "No status"}</p>
+                    }
+                </div>
+                : <div>
+                    <input autoFocus={true}
+                           value={status.toString()}
+                           onChange={onUserStatusUpdate}
+                           className={styles.inputStatus}/>
+                    <button onClick={onClickDeactivateStatusMode} className={styles.cancelBtn}>Cancel</button>
+                    <button onClick={onClickDeactivateStatusModeAndUpdateStatus} className={styles.saveBtn}>Save</button>
+                </div>
+            }
+        </div>
+    )
 }
 
 export default ProfileStatus
