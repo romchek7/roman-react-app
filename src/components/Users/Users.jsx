@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useMemo, useState} from "react"
 import styles from './Users.module.css'
 import userIcon from '../assets/images/account.png'
 import {NavLink} from "react-router-dom";
@@ -21,16 +21,25 @@ import {
 } from "../../selectors/usersSelectors";
 import Preloader from "../common/Preloader/Preloader";
 
-let Users = (props) => {
+let Users = React.memo((props) => {
     useEffect(() => {
+        console.log('getUsersThunk')
         props.getUsersThunk(props.currentPage, props.pageSize)
     }, [props.users.length])
+
+
+
+
 
     const onPageChanged = (pageNumber) => {
         props.setCurrentPage(pageNumber)
         props.getUsersThunk(pageNumber, props.pageSize)
         window.scrollTo({behavior: 'smooth', top: '0px'})
     }
+
+
+
+
 
     const onFollowUser = (userId) => {
         props.followUserThunk(userId)
@@ -40,14 +49,34 @@ let Users = (props) => {
         props.unfollowUserThunk(userId)
     }
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
-    let pages = () => {
-        let start = Math.floor((props.currentPage - 1) / props.pagesLimit) * props.pagesLimit
-        return new Array(props.pagesLimit).fill().map((_, idx) => start + idx + 1)
+
+
+
+    const pagesCount = useMemo(() => {
+        console.log('pagesCount')
+        return Math.ceil(props.totalUsersCount / props.pageSize)
+    }, [props.totalUsersCount, props.pageSize])
+
+
+
+
+
+    const getPagesCount = (currentPage, pagesLimit) => {
+        console.log('getPagesCount')
+        let start = (Math.floor((currentPage - 1) / pagesLimit) * pagesLimit)
+        return new Array(pagesLimit).fill().map((_, idx) => start + idx + 1)
     }
+    const pages = useMemo(() => {
+        console.log('pages')
+        return getPagesCount(props.currentPage, props.pagesLimit)
+    }, [props.currentPage, props.pagesLimit])
 
-    let pagesElements = pages().map(p =>
+
+
+
+
+    const pagesElements = pages.map(p =>
         <div onClick={(e) => {
             onPageChanged(p)
         }}
@@ -56,7 +85,11 @@ let Users = (props) => {
         </div>
     )
 
-    let usersElements = props.users.map(u => (
+
+
+
+
+    const usersElements = props.users.map(u => (
         <div className={styles.user}>
             <div className={styles.userPhoto}>
                 <NavLink to={'/profile/' + u.id}>
@@ -80,6 +113,10 @@ let Users = (props) => {
             </div>
         </div>
     ))
+
+
+
+
 
     return (
         props.isFetching
@@ -121,7 +158,7 @@ let Users = (props) => {
                     </div>
                 </div>
     )
-}
+})
 
 let mapStateToProps = (state) => {
     return {

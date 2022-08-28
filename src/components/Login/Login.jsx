@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Field, reduxForm} from "redux-form";
 import styles from './Login.module.css'
 import {email, isRequired, maxLength, minLength} from "../../validation/validators";
 import {Input} from "../common/FormValidationControl/FormValidationControl";
 import {connect} from "react-redux";
 import {logInUser} from "../../redux/auth-reducer";
-import {Navigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const minLength5 = minLength(5)
 const maxLength50 = maxLength(50)
@@ -37,16 +37,20 @@ let LoginForm = (props) => {
 
 const LoginReduxForm = reduxForm({
     form: 'login'
-})(LoginForm)
+})(React.memo(LoginForm))
 
 let Login = (props) => {
     const onSubmit = (formData) => {
         props.logInUser(formData.email, formData.password, formData.rememberMe)
     }
 
-    if (props.isAuth) {
-        return <Navigate replace to={'/profile'}/>
-    }
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (props.isAuth) {
+            navigate('/profile')
+        }
+    }, [props.isAuth])
 
     return <div className={styles.main}>
         <h1>LOGIN</h1>
@@ -60,4 +64,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {logInUser})(Login)
+export default connect(mapStateToProps, {logInUser})(React.memo(Login))

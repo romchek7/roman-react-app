@@ -10,7 +10,7 @@ const SET_DISABLED_VALUE = 'SET_DISABLED_VALUE'
 
 let initialState = {
     users: [],
-    pageSize: 4,
+    pageSize: 5,
     totalUsersCount: 40,
     currentPage: 1,
     pagesLimit: 5,

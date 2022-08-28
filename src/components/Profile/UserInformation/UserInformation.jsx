@@ -1,15 +1,14 @@
-import React from "react";
+import React from "react"
 import styles from './UserInformation.module.css'
-import Preloader from "../../common/Preloader/Preloader";
+import Preloader from "../../common/Preloader/Preloader"
 import userLogo from '../../assets/images/account.png'
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatus from "./ProfileStatus"
 
 const UserInformation = (props) => {
-    if (!props.profile) {
-        return <Preloader/>
-    }
     return (
-        <div className={styles.main}>
+        !props.profile
+            ? <Preloader/>
+            : <div className={styles.main}>
             <div className={styles.userInfo}>
                 <div className={styles.userPhoto}>
                     <img src={props.profile.photos.large === null ? userLogo : props.profile.photos.large}/>
@@ -28,7 +27,7 @@ const UserInformation = (props) => {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default UserInformation;
+export default React.memo(UserInformation)
