@@ -13,7 +13,7 @@ let initialState = {
     pageSize: 5,
     totalUsersCount: 40,
     currentPage: 1,
-    pagesLimit: 5,
+    pagesLimit: 10,
     isFetching: false,
     disabledSubscribeButton: []
 }

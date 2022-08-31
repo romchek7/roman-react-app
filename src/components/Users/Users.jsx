@@ -20,76 +20,35 @@ import {
     getUsersSelector
 } from "../../selectors/usersSelectors";
 import Preloader from "../common/Preloader/Preloader";
+import Pagination from "../common/Pagination/Pagination";
 
-let Users = React.memo((props) => {
+let Users = React.memo(({users, pageSize, totalUsersCount, currentPage, pagesLimit, isFetching, disabledSubscribeButton,
+                            follow,
+                            unFollow,
+                            setCurrentPage,
+                            setDisabledButtonValue,
+                            getUsersThunk,
+                            followUserThunk,
+                            unfollowUserThunk}) => {
     useEffect(() => {
-        console.log('getUsersThunk')
-        props.getUsersThunk(props.currentPage, props.pageSize)
-    }, [props.users.length])
-
-
-
-
+        getUsersThunk(currentPage, pageSize)
+    }, [users.length])
 
     const onPageChanged = (pageNumber) => {
-        props.setCurrentPage(pageNumber)
-        props.getUsersThunk(pageNumber, props.pageSize)
+        setCurrentPage(pageNumber)
+        getUsersThunk(pageNumber, pageSize)
         window.scrollTo({behavior: 'smooth', top: '0px'})
     }
 
-
-
-
-
     const onFollowUser = (userId) => {
-        props.followUserThunk(userId)
+        followUserThunk(userId)
     }
 
     const onUnfollowUser = (userId) => {
-        props.unfollowUserThunk(userId)
+        unfollowUserThunk(userId)
     }
 
-
-
-
-
-    const pagesCount = useMemo(() => {
-        console.log('pagesCount')
-        return Math.ceil(props.totalUsersCount / props.pageSize)
-    }, [props.totalUsersCount, props.pageSize])
-
-
-
-
-
-    const getPagesCount = (currentPage, pagesLimit) => {
-        console.log('getPagesCount')
-        let start = (Math.floor((currentPage - 1) / pagesLimit) * pagesLimit)
-        return new Array(pagesLimit).fill().map((_, idx) => start + idx + 1)
-    }
-    const pages = useMemo(() => {
-        console.log('pages')
-        return getPagesCount(props.currentPage, props.pagesLimit)
-    }, [props.currentPage, props.pagesLimit])
-
-
-
-
-
-    const pagesElements = pages.map(p =>
-        <div onClick={(e) => {
-            onPageChanged(p)
-        }}
-             className={props.currentPage === p ? styles.paginationNumberActive : styles.paginationNumber}>
-            {p}
-        </div>
-    )
-
-
-
-
-
-    const usersElements = props.users.map(u => (
+    const usersElements = users.map(u => (
         <div className={styles.user}>
             <div className={styles.userPhoto}>
                 <NavLink to={'/profile/' + u.id}>
@@ -101,11 +60,11 @@ let Users = React.memo((props) => {
             </div>
             <div className={styles.followBtn}>
                 {u.followed
-                    ? <button disabled={props.disabledSubscribeButton.some(id => id === u.id)}
+                    ? <button disabled={disabledSubscribeButton.some(id => id === u.id)}
                               onClick={() => {
                                   onUnfollowUser(u.id)
                               }}>Unfollow</button>
-                    : <button disabled={props.disabledSubscribeButton.some(id => id === u.id)}
+                    : <button disabled={disabledSubscribeButton.some(id => id === u.id)}
                               onClick={() => {
                                   onFollowUser(u.id)
                               }}>Follow</button>
@@ -114,47 +73,14 @@ let Users = React.memo((props) => {
         </div>
     ))
 
-
-
-
-
     return (
-        props.isFetching
+        isFetching
                 ? <Preloader/>
                 : <div className={styles.main}>
                     <div className={styles.users}>
                         {usersElements}
-                        <div className={styles.paginationNumbers}>
-                            <div
-                                className={props.currentPage > props.pagesLimit ? styles.paginationNumber : styles.paginationNumberHold}
-                                onClick={() => {
-                                    onPageChanged(1)
-                                }}>
-                                First page
-                            </div>
-                            <div
-                                onClick={() => {
-                                    onPageChanged(props.currentPage - 1)
-                                }}
-                                className={props.currentPage > 1 ? styles.paginationNumber : styles.paginationNumberHold}>
-                                Previous
-                            </div>
-                            {pagesElements}
-                            <div
-                                onClick={() => {
-                                    onPageChanged(props.currentPage + 1)
-                                }}
-                                className={props.currentPage === pagesCount ? styles.paginationNumberHold : styles.paginationNumber}>
-                                Next
-                            </div>
-                            <div
-                                className={props.currentPage <= (pagesCount - props.pagesLimit) ? styles.paginationNumber : styles.paginationNumberHold}
-                                onClick={() => {
-                                    onPageChanged(pagesCount)
-                                }}>
-                                Last page
-                            </div>
-                        </div>
+                        <Pagination onPageChanged={onPageChanged} currentPage={currentPage} pagesLimit={pagesLimit}
+                                    totalItemsCount={totalUsersCount} pageSize={pageSize}/>
                     </div>
                 </div>
     )
