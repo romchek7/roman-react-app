@@ -49,7 +49,7 @@ let Users = React.memo(({users, pageSize, totalUsersCount, currentPage, pagesLim
     }
 
     const usersElements = users.map(u => (
-        <div className={styles.user}>
+        <div className={styles.user} key={u.id}>
             <div className={styles.userPhoto}>
                 <NavLink to={'/profile/' + u.id}>
                     <img src={u.photos.small != null ? u.photos.small : userIcon}/>

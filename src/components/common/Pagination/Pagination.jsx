@@ -2,17 +2,33 @@ import React, {useEffect, useMemo, useState} from "react"
 import styles from "./Pagination.module.css"
 
 let Pagination = ({onPageChanged, currentPage, pagesLimit, totalItemsCount, pageSize}) => {
-    let totalPages = Math.ceil(totalItemsCount/pageSize)
-    let leftPortionPage = (Math.floor((currentPage - 1) / pagesLimit) * pagesLimit) + 1
-    let rightPortionPage = leftPortionPage + pagesLimit - 1
-    let pagesItems = []
-    for (let i = 1; i <= totalPages; i++) {
-        pagesItems.push(i)
-    }
+    let totalPages = useMemo(() => {
+        console.log('totalPages')
+        return Math.ceil(totalItemsCount / pageSize)
+    }, [totalItemsCount, pageSize])
+
+    let leftPortionPage = useMemo(() => {
+        console.log('leftPortionPage')
+        return ((Math.floor((currentPage - 1) / pagesLimit) * pagesLimit) + 1)
+    }, [currentPage, pagesLimit])
+
+    let rightPortionPage = useMemo(() => {
+        console.log('rightPortionPage')
+        return leftPortionPage + pagesLimit - 1
+    }, [leftPortionPage, pagesLimit])
+
+    let pagesItems = useMemo(() => {
+        console.log('pagesItems')
+        let array = []
+        for (let i = 1; i <= totalPages; i++) {
+            array.push(i)
+        }
+        return array
+    }, [totalPages])
 
     let pagesElements = pagesItems
         .filter(p => p >= leftPortionPage && p <= rightPortionPage)
-        .map(p => <div onClick={(e) => {
+        .map(p => <div key={p} onClick={(e) => {
             onPageChanged(p)
         }} className={currentPage === p ? styles.paginationNumberActive : styles.paginationNumber}>
             {p}
