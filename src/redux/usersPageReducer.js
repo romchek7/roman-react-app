@@ -18,28 +18,27 @@ let initialState = {
     disabledSubscribeButton: []
 }
 
+const usersUpdate = (users, id, userId, followedValue) => {
+    return users.map(u => {
+        if (u[id] === userId) {
+            return {...u, followed: followedValue}
+        }
+        return u
+    })
+}
+
 let usersPageReducer = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW: {
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: true}
-                    }
-                    return u
-                })
+                users: usersUpdate(state.users, "id", action.userId, true)
             }
         }
         case UNFOLLOW: {
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: false}
-                    }
-                    return u
-                })
+                users: usersUpdate(state.users, "id", action.userId, false)
             }
         }
         case SET_USERS: {
@@ -90,33 +89,29 @@ export let setTotalUsersCount = (totalUsersCount) => ({
 export let setFetchingValue = (isFetching) => ({type: SET_FETCHING_VALUE, isFetching})
 export let setDisabledButtonValue = (disabled, userId) => ({type: SET_DISABLED_VALUE, disabled, userId})
 
-export const getUsersThunk = (currentPage, pageSize) => (dispatch) => {
+export const getUsersThunk = (currentPage, pageSize) => async (dispatch) => {
     dispatch(setFetchingValue(true))
-    usersAPI.getUsers(currentPage, pageSize).then(data => {
-        dispatch(setUsers(data.items))
-        dispatch(setTotalUsersCount(data.totalCount))
-        dispatch(setFetchingValue(false))
-    })
+    const response = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(setUsers(response.data.items))
+    dispatch(setTotalUsersCount(response.data.totalCount))
+    dispatch(setFetchingValue(false))
 }
 
-export const followUserThunk = (userId) => (dispatch) => {
+const followUnfollowUser = async (dispatch, userId, apiMethod, actionCreator) => {
     dispatch(setDisabledButtonValue(true, userId))
-    followUnfollowAPI.followUser(userId).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(follow(userId))
-            dispatch(setDisabledButtonValue(false, userId))
-        }
-    })
+    let response = await apiMethod(userId)
+    if (response.data.resultCode === 0) {
+        dispatch(actionCreator(userId))
+        dispatch(setDisabledButtonValue(false, userId))
+    }
 }
 
-export const unfollowUserThunk = (userId) => (dispatch) => {
-    dispatch(setDisabledButtonValue(true, userId))
-    followUnfollowAPI.unfollowUser(userId).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(unFollow(userId))
-            dispatch(setDisabledButtonValue(false, userId))
-        }
-    })
+export const followUserThunk = (userId) => async (dispatch) => {
+    return followUnfollowUser(dispatch, userId, followUnfollowAPI.followUser, follow)
+}
+
+export const unfollowUserThunk = (userId) => async (dispatch) => {
+    return followUnfollowUser(dispatch, userId, followUnfollowAPI.unfollowUser, unFollow)
 }
 
 export default usersPageReducer
