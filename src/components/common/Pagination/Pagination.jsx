@@ -3,22 +3,18 @@ import styles from "./Pagination.module.css"
 
 let Pagination = ({onPageChanged, currentPage, pagesLimit, totalItemsCount, pageSize}) => {
     let totalPages = useMemo(() => {
-        console.log('totalPages')
         return Math.ceil(totalItemsCount / pageSize)
     }, [totalItemsCount, pageSize])
 
     let leftPortionPage = useMemo(() => {
-        console.log('leftPortionPage')
         return ((Math.floor((currentPage - 1) / pagesLimit) * pagesLimit) + 1)
     }, [currentPage, pagesLimit])
 
     let rightPortionPage = useMemo(() => {
-        console.log('rightPortionPage')
         return leftPortionPage + pagesLimit - 1
     }, [leftPortionPage, pagesLimit])
 
     let pagesItems = useMemo(() => {
-        console.log('pagesItems')
         let array = []
         for (let i = 1; i <= totalPages; i++) {
             array.push(i)
