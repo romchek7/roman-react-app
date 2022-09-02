@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST'
 const DELETE_POST = 'DELETE_POST'
 const SET_USERS_PROFILE = 'SET_USERS_PROFILE'
 const SET_USER_STATUS = 'SET_USER_STATUS'
+const SET_USER_MAIN_PHOTO = 'SET_USER_MAIN_PHOTO'
 
 let initialState = {
     profile: null,
@@ -41,6 +42,11 @@ const profilePageReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status
             }
+        case SET_USER_MAIN_PHOTO:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photo}
+            }
         default:
             return state
     }
@@ -50,6 +56,7 @@ export let addPost = (newPostText) => ({type: ADD_POST, newPostText})
 export let deletePost = (postId) => ({type: DELETE_POST, postId})
 export let setUsersProfile = (profile) => ({type: SET_USERS_PROFILE, profile})
 export let setUserStatus = (status) => ({type: SET_USER_STATUS, status})
+export let setUserMainPhoto = (photo) => ({type: SET_USER_MAIN_PHOTO, photo})
 
 export const getProfileThunk = (userId) => async (dispatch) => {
     const response = await profileAPI.getProfile(userId)
@@ -65,6 +72,13 @@ export const updateUserStatusThunk = (status) => async (dispatch) => {
     const response = await profileAPI.updateUserStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status))
+    }
+}
+
+export const updateUserMainPhoto = (photo) => async (dispatch) => {
+    const response = await profileAPI.updateUserMainPhoto(photo)
+    if (response.data.resultCode === 0 ) {
+        dispatch(setUserMainPhoto(response.data.data.photos))
     }
 }
 

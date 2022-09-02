@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {
     getProfileThunk,
     getUserStatusThunk,
-    setUsersProfile,
+    setUsersProfile, updateUserMainPhoto,
     updateUserStatusThunk
 } from "../../redux/profilePageReducer";
 import {logOutUser} from "../../redux/auth-reducer";
@@ -37,6 +37,7 @@ const Profile = (props) => {
                              status={props.status}
                              authUserId={props.authUserId}
                              logOutUser={props.logOutUser}
+                             updateUserMainPhoto={props.updateUserMainPhoto}
                              updateUserStatusThunk={props.updateUserStatusThunk}/>
             <Posts/>
         </div>
@@ -54,7 +55,7 @@ let mapStateToProps = (state) => {
 
 export default compose(
     connect(mapStateToProps, {
-        setUsersProfile, getProfileThunk, getUserStatusThunk,
+        setUsersProfile, getProfileThunk, getUserStatusThunk, updateUserMainPhoto,
         updateUserStatusThunk, logOutUser}),
     withAuthUserRedirect
 )(Profile)
