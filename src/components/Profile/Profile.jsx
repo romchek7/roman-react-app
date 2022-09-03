@@ -1,13 +1,19 @@
 import React, {useEffect} from "react"
 import styles from './Profile.module.css'
 import UserInformation from './UserInformation/UserInformation'
-import {getAuthUserId, getNeedUserId, getProfileSelector, getStatusSelector} from "../../selectors/profileSelectors";
+import {
+    getApiQueryMessage,
+    getAuthUserId,
+    getNeedUserId,
+    getProfileSelector,
+    getStatusSelector
+} from "../../selectors/profileSelectors";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {
     getProfileThunk,
     getUserStatusThunk,
-    setUsersProfile, updateUserMainPhoto,
+    setUsersProfile, updateUserInfoThunk, updateUserMainPhoto,
     updateUserStatusThunk
 } from "../../redux/profilePageReducer";
 import {logOutUser} from "../../redux/auth-reducer";
@@ -38,7 +44,9 @@ const Profile = (props) => {
                              authUserId={props.authUserId}
                              logOutUser={props.logOutUser}
                              updateUserMainPhoto={props.updateUserMainPhoto}
-                             updateUserStatusThunk={props.updateUserStatusThunk}/>
+                             updateUserInfoThunk={props.updateUserInfoThunk}
+                             updateUserStatusThunk={props.updateUserStatusThunk}
+                             apiQueryMessage={props.apiQueryMessage}/>
             <Posts/>
         </div>
     );
@@ -49,13 +57,13 @@ let mapStateToProps = (state) => {
         profile: getProfileSelector(state),
         status: getStatusSelector(state),
         authUserId: getAuthUserId(state),
-        needUserId: getNeedUserId(state)
+        apiQueryMessage: getApiQueryMessage(state)
     }
 }
 
 export default compose(
     connect(mapStateToProps, {
         setUsersProfile, getProfileThunk, getUserStatusThunk, updateUserMainPhoto,
-        updateUserStatusThunk, logOutUser}),
+        updateUserStatusThunk, logOutUser, updateUserInfoThunk}),
     withAuthUserRedirect
 )(Profile)

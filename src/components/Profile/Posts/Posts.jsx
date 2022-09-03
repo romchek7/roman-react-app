@@ -27,7 +27,7 @@ const CreatePostReduxForm = reduxForm({
 })(CreatePostForm)
 
 const Posts = (props) => {
-    let postsElements = props.postsArray.map(p => <Post id={p.id} text={p.message} likes={p.likes}/>)
+    let postsElements = props.postsArray.map(p => <Post id={p.id} key={p.id} text={p.message} likes={p.likes}/>)
 
     let onSubmit = (formData) => {
         props.addPost(formData.newPostText)

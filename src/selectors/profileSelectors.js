@@ -10,6 +10,6 @@ export const getAuthUserId = (state) => {
     return state.auth.userId
 }
 
-export const getNeedUserId = (state) => {
-    return state.profilePage.needUserId
+export const getApiQueryMessage = (state) => {
+    return state.profilePage.apiQueryMessage
 }

@@ -7,7 +7,7 @@
 .userInfo {
     width: 50%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     color: rgb(230, 230, 230, 1);
     font-size: 20px;
@@ -18,8 +18,9 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
+    margin-top: 30px;
 }
 
 .userPhoto img {
@@ -34,7 +35,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .inputStatus {
@@ -48,6 +49,7 @@
     height: 50px;
     align-items: center;
     justify-content: flex-start;
+    margin-top: 30px;
 }
 
 .userNameLogOut p {
@@ -55,6 +57,7 @@
 }
 
 .userNameLogOut button,
+.userTextInfo button,
 .saveBtn,
 .cancelBtn {
     margin: 10px;
@@ -64,6 +67,11 @@
     padding: revert;
 }
 
+.userTextInfo button img {
+    width: 20px;
+    height: 20px;
+}
+
 .cancelBtn {
     background-color: #E60F0F;
     color: rgb(230, 230, 230);
@@ -71,6 +79,7 @@
 }
 
 .userNameLogOut button:hover,
+.userTextInfo button:hover,
 .saveBtn:hover,
 .cancelBtn:hover {
     cursor: pointer;
@@ -106,4 +115,24 @@
 
 .setNewPhoto input {
     display: none;
+}
+
+.userInfoForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.errorText {
+    color: #E60F0F;
+    font-size: 15px;
+}
+
+.errorApi {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 100px;
+    background-color: #E60F0F;
+    color: white;
 }
