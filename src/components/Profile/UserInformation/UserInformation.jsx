@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react"
+import React, {useEffect, useMemo, useRef, useState} from "react"
 import styles from './UserInformation.module.css'
 import Preloader from "../../common/Preloader/Preloader"
 import userLogo from '../../assets/images/account.png'
@@ -132,6 +132,9 @@ const UserInformation = (props) => {
     let [photoIsReadyToUpdate, setPhotoIsReadyToUpdate] = useState(false)
     let [newMainPhoto, setNewMainPhoto] = useState(null)
 
+    const myRef = useRef(null)
+    const executeScroll = () => myRef.current.scrollIntoView({behavior: 'smooth'})
+
     const onMainPhotoSelected = (e) => {
         if (e.target.files.length > 0) {
             setPhotoIsReadyToUpdate(true)
@@ -151,10 +154,12 @@ const UserInformation = (props) => {
 
     const onOpenFormToEditUserInfo = () => {
         setInfoIsReadyToUpdate(true)
+        executeScroll()
     }
 
     const onCloseFormToEditUserInfo = () => {
         setInfoIsReadyToUpdate(false)
+        window.scrollTo({behavior: 'smooth', top: '0px'})
     }
 
     const returnTextInfoOfUser = (info) => {
@@ -207,11 +212,13 @@ const UserInformation = (props) => {
                         {returnTextInfoOfUser(props.profile.contacts.twitter)}
                         {returnTextInfoOfUser(props.profile.contacts.website)}
                         {returnTextInfoOfUser(props.profile.contacts.youtube)}
-                        <UpdateInfoForm infoIsReadyToUpdate={infoIsReadyToUpdate}
-                                        onCloseFormToEditUserInfo={onCloseFormToEditUserInfo}
-                                        updateUserInfoThunk={props.updateUserInfoThunk}
-                                        profile={props.profile}
-                                        apiQueryMessage={props.apiQueryMessage}/>
+                        <div ref={myRef}>
+                            <UpdateInfoForm infoIsReadyToUpdate={infoIsReadyToUpdate}
+                                            onCloseFormToEditUserInfo={onCloseFormToEditUserInfo}
+                                            updateUserInfoThunk={props.updateUserInfoThunk}
+                                            profile={props.profile}
+                                            apiQueryMessage={props.apiQueryMessage}/>
+                        </div>
                         {props.apiQueryMessage !== ''
                             ? <div className={styles.errorApi}>
                                 Error: {props.apiQueryMessage}
