@@ -1,49 +1,95 @@
 import React, {useEffect} from 'react'
-import {Field, reduxForm} from "redux-form";
 import styles from './Login.module.css'
-import {email, isRequired, maxLength, minLength} from "../../validation/validators";
-import {Input} from "../common/FormValidationControl/FormValidationControl";
+import {email, maxLength, minLength} from "../../validation/validators";
 import {connect} from "react-redux";
 import {logInUser} from "../../redux/auth-reducer";
 import {useNavigate} from "react-router-dom";
+import {useFormik} from 'formik';
+import {getAuthSelector, getCaptcha, getErrorOfAuthorization} from "../../selectors/authSelectors";
 
 const minLength5 = minLength(5)
 const maxLength50 = maxLength(50)
 
-let LoginForm = (props) => {
+let LoginForm = ({logInUser, errorAuth, captcha}) => {
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            rememberMe: true,
+            captcha: ''
+        },
+        onSubmit: values => {
+            logInUser(values.email, values.password, values.rememberMe, values.captcha)
+        },
+        validate: values => {
+            let errors = {}
+
+            if (!values.email) {
+                errors.email = 'Email is required!'
+            }
+
+            if (email(values.email)) {
+                errors.email = email(values.email)
+            }
+
+            if(minLength5(values.password)) {
+                errors.password = minLength5(values.password)
+            }
+
+            if(maxLength50(values.password)) {
+                errors.password = maxLength50(values.password)
+            }
+
+            return errors
+        }
+    })
+
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
             <div className={styles.formDiv}>
                 <div className={styles.formItem}>
-                    <Field placeholder={'Email'} name={'email'} component={Input} validate={[isRequired, minLength5, email]}/>
+                    <input id='email' placeholder='Email'
+                           name='email' type='text'
+                           onChange={formik.handleChange}
+                           value={formik.values.email}/>
                 </div>
+                <label htmlFor='email'>
+                    <div className={formik.errors.email ? styles.active : styles.notActive}>
+                        <p className={styles.errorText}>{formik.errors.email}</p>
+                    </div>
+                </label>
                 <div className={styles.formItem}>
-                    <Field placeholder={'Password'} type={'password'} name={'password'} component={Input} validate={[isRequired, minLength5, maxLength50]}/>
+                    <input id='password' placeholder='Password' type='password' name='password'
+                           value={formik.values.password} onChange={formik.handleChange}/>
                 </div>
+                <label htmlFor='password'>
+                    <div className={formik.errors.password ? styles.active : styles.notActive}>
+                        <p className={styles.errorText}>{formik.errors.password}</p>
+                    </div>
+                </label>
                 <div className={styles.formItem}>
-                    <Field name={'rememberMe'} component={Input} type={'checkbox'}/>
+                    <input id='rememberMe' name='rememberMe' type='checkbox' onChange={formik.handleChange}/>
                     Remember me
                 </div>
-                <div className={props.error ? styles.loginErrorActive : styles.loginErrorNotActive}>
-                    {props.error}
+                <div className={errorAuth ? styles.loginErrorActive : styles.notActive}>
+                    {errorAuth}
                 </div>
+                {captcha != null
+                    ? <div className={styles.captchaDiv}>
+                        <img src={captcha}/>
+                        <input id='captcha' placeholder='captcha' type='text' name='captcha'
+                               value={formik.values.captcha} onChange={formik.handleChange}/>
+                    </div>
+                    : null}
                 <div className={styles.formItem}>
-                    <button>Login</button>
+                    <button type='submit'>Login</button>
                 </div>
             </div>
         </form>
     )
 }
 
-const LoginReduxForm = reduxForm({
-    form: 'login'
-})(React.memo(LoginForm))
-
 let Login = (props) => {
-    const onSubmit = (formData) => {
-        props.logInUser(formData.email, formData.password, formData.rememberMe)
-    }
-
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -54,13 +100,15 @@ let Login = (props) => {
 
     return <div className={styles.main}>
         <h1>LOGIN</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginForm logInUser={props.logInUser} captcha={props.captcha} errorAuth={props.errorAuth}/>
     </div>
 }
 
 let mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: getAuthSelector(state),
+        captcha: getCaptcha(state),
+        errorAuth: getErrorOfAuthorization(state)
     }
 }
 

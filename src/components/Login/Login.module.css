@@ -51,6 +51,20 @@
     color: #E60F0F;
 }
 
-.loginErrorNotActive {
+.active {
+    display: block;
+}
+
+.notActive {
     display: none;
+}
+
+.errorText {
+    color: #E60F0F;
+    font-size: 15px;
+}
+
+.captchaDiv {
+    display: flex;
+    flex-direction: column;
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from "react"
+import React, {useRef, useState} from "react"
 import styles from './UserInformation.module.css'
 import Preloader from "../../common/Preloader/Preloader"
 import userLogo from '../../assets/images/account.png'
@@ -6,7 +6,7 @@ import setPhotoIcon from '../../assets/images/setPhotoIcon.png'
 import setPhotoIcon2 from '../../assets/images/setPhotoIcon2.png'
 import iconSettings from '../../assets/images/settings.svg'
 import ProfileStatus from "./ProfileStatus"
-import {useFormik} from 'formik';
+import {useFormik} from 'formik'
 
 const UpdateInfoForm = (props) => {
     const formik = useFormik({
