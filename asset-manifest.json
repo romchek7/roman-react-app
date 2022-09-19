@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/roman-react-app/static/css/main.540fde5a.css",
+    "main.js": "/roman-react-app/static/js/main.b9593b10.js",
+    "static/css/531.ba466b3d.chunk.css": "/roman-react-app/static/css/531.ba466b3d.chunk.css",
+    "static/js/531.f807173f.chunk.js": "/roman-react-app/static/js/531.f807173f.chunk.js",
+    "static/css/530.3408cab1.chunk.css": "/roman-react-app/static/css/530.3408cab1.chunk.css",
+    "static/js/530.e1a1f028.chunk.js": "/roman-react-app/static/js/530.e1a1f028.chunk.js",
+    "static/js/787.f8681e5f.chunk.js": "/roman-react-app/static/js/787.f8681e5f.chunk.js",
+    "static/media/svgReactBackground.svg": "/roman-react-app/static/media/svgReactBackground.948ff5db369ffc0dbb3d.svg",
+    "static/media/account.png": "/roman-react-app/static/media/account.152e4568193822add118.png",
+    "static/media/settings.svg": "/roman-react-app/static/media/settings.bceec8fa28f1645c215b657eb6e013c4.svg",
+    "index.html": "/roman-react-app/index.html",
+    "main.540fde5a.css.map": "/roman-react-app/static/css/main.540fde5a.css.map",
+    "main.b9593b10.js.map": "/roman-react-app/static/js/main.b9593b10.js.map",
+    "531.ba466b3d.chunk.css.map": "/roman-react-app/static/css/531.ba466b3d.chunk.css.map",
+    "531.f807173f.chunk.js.map": "/roman-react-app/static/js/531.f807173f.chunk.js.map",
+    "530.3408cab1.chunk.css.map": "/roman-react-app/static/css/530.3408cab1.chunk.css.map",
+    "530.e1a1f028.chunk.js.map": "/roman-react-app/static/js/530.e1a1f028.chunk.js.map",
+    "787.f8681e5f.chunk.js.map": "/roman-react-app/static/js/787.f8681e5f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.540fde5a.css",
+    "static/js/main.b9593b10.js"
+  ]
+}
